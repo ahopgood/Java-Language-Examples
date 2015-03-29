@@ -7,8 +7,8 @@ public class SwitchStatements {
 	}
 	
 	public static String jan = "January";
-	public static String feb = "Fenruary";
-	public static String march = "Marche";
+	public static String feb = "February";
+	public static String march = "March";
 	public static String april = "April";
 	public static String may = "May";
 	public static String june = "June";
@@ -30,6 +30,7 @@ public class SwitchStatements {
 			case "January": case "March": 
 			case "May": case "July": 
 			case "August": case "December":
+			case "October":
 				return 31;
 			case "February":
 				return 28;
