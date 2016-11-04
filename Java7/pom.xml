@@ -3,6 +3,7 @@
   <groupId>com.alexander.java.examples.Java7</groupId>
   <artifactId>Java7</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+
   <dependencies>
   	<dependency>
   		<groupId>junit</groupId>
@@ -10,4 +11,5 @@
   		<version>4.11</version>
   	</dependency>
   </dependencies>
+
 </project>
