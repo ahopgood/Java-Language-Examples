@@ -22,5 +22,4 @@ public class SwitchStatementsTest {
 		assertEquals(31, SwitchStatements.stringSwitch(SwitchStatements.dec));
 	}
 	
-	
 }

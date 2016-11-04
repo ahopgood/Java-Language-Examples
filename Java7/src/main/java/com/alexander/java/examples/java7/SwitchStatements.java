@@ -21,7 +21,9 @@ public class SwitchStatements {
 	
 //	public static String match = "match";
 //	public static String noMatch = "no match";
-	
+
+	//Note case sensitivity
+	//Switch statement is generally more efficient than if else loops
 	public static int stringSwitch(String arg){
 		switch (arg){
 			case "April": case "June": 

@@ -7,6 +7,7 @@
     <groupId>com.alexander.java.examples</groupId>
     <artifactId>Java-Language-Examples</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
     <modules>
         <module>Java7</module>
