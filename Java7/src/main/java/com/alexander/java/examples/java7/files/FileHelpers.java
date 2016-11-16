@@ -19,8 +19,10 @@ public class FileHelpers {
     protected String packagePath = this.getClass().getPackage().toString().replace(".", separator);
     public FileHelpers(){}
 
-    public void copyFile(){
-
+    public void copyFile(String source, String target) throws IOException {
+        Path sourcePath = Paths.get(source);
+        Path targetPath = Paths.get(target);
+        Files.copy(sourcePath, targetPath);
     }
 
     public void createDirectory(){
