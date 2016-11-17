@@ -25,8 +25,9 @@ public class FileHelpers {
         Files.copy(sourcePath, targetPath);
     }
 
-    public void createDirectory(){
-
+    public void createDirectory(String directoryName) throws IOException {
+        Path directoryPath = Paths.get(directoryName);
+        Files.createDirectories(directoryPath);
     }
 
     public void createFile(String filename) throws IOException {

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.Buffer;
+import java.nio.file.Path;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -56,6 +57,25 @@ public class FileHelpersTest {
         }
     }
 
+    @Test
+    public void testCreateDirectory() throws IOException{
+        String directoryName = "mydir";
+        File directory = new File(directoryName);
+        try {
+            if (directory.exists()){
+                throw new RuntimeException("Directory exists, cannot verify FileHelpers.createDirectory() is working.");
+            }
+            helper.createDirectory(directoryName);
+            assertTrue(directory.exists());
+            assertTrue(directory.isDirectory());
+        } catch (Exception e){
+
+        } finally {
+            if (directory.exists()){
+                directory.delete();
+            }
+        }
+    }
 
     @Test
     public void testCreateFile(){
