@@ -7,7 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * Created by alexhopgood on 09/11/16.
+ * <a href="https://docs.oracle.com/javase/tutorial/essential/io/links.html">Oracle io links page</a>
  */
 public class FileNavigationHelper {
 

@@ -12,6 +12,8 @@ import java.nio.file.Paths;
 /**
  * The java.nio.file.Files class is a class of static methods to operate on files,
  * directories and other types of file.
+ *
+ * <a href="https://docs.oracle.com/javase/tutorial/essential/io/links.html">Oracle io links page</a>
  */
 public class FileHelpers {
 
@@ -54,6 +56,10 @@ public class FileHelpers {
 
     public void changeAttributes(){
 
+    }
+
+    public void useTempDirectory(){
+//        Files.createTempFile();
     }
 
     public byte[] readFile(String filename) throws IOException {
