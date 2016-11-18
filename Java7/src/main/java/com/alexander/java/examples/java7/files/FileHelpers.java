@@ -41,6 +41,12 @@ public class FileHelpers {
         Files.createLink(linkPath, path);
     }
 
+    public void createSymbolicLink(String filename, String link) throws IOException {
+        Path path = Paths.get(filename);
+        Path linkPath = Paths.get(link);
+        Files.createSymbolicLink(linkPath, path);
+    }
+
     public void delete(String filename) throws IOException {
         Path path = Paths.get(filename);
         Files.delete(path);

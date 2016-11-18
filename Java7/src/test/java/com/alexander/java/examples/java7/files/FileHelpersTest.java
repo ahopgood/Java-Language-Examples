@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -106,22 +107,59 @@ public class FileHelpersTest {
         try {
             assertTrue(source.exists());
             assertTrue(source.isFile());
-            System.out.println(source.length());
-
             helper.createHardLink(filename, linkname);
             assertTrue(link.exists());
             assertTrue(link.isFile());
             assertEquals(source.length(), link.length());
             assertEquals(source.lastModified(), link.lastModified());
 
+
+            assertFalse(source.getAbsolutePath() == link.getAbsolutePath());
+            assertFalse(source.getCanonicalPath() == link.getCanonicalPath());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            //if the source is deleted before the link the link doesn't exist according to java.
+            if (link.exists()){
+                link.delete();
+            }
             if (source.exists()) {
                 source.delete();
             }
+        }
+    }
+
+    @Test
+    public void testLink() throws IOException{
+        String filename = "testfile.txt";
+        File source = new File(filename);
+        //Write come content to verify the file copy operation
+        try ( BufferedWriter writer = new BufferedWriter(new FileWriter(source)) ){
+            writer.write("This is a test file");
+            writer.close();
+        }
+
+        String linkname = "mylink.txt";
+        File link = new File(linkname);
+        try {
+            assertTrue(source.exists());
+            assertTrue(source.isFile());
+            helper.createSymbolicLink(filename, linkname);
+            assertTrue(link.exists());
+            assertTrue(link.isFile());
+            assertEquals(source.length(), link.length());
+            assertEquals(source.lastModified(), link.lastModified());
+
+            assertEquals(source.getCanonicalPath(), link.getCanonicalPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            //if the source is deleted before the link the link doesn't exist according to java.
             if (link.exists()){
                 link.delete();
+            }
+            if (source.exists()) {
+                source.delete();
             }
         }
     }
