@@ -56,11 +56,15 @@ public class FileHelpers {
 
     }
 
-    public void readFile(){
-
+    public byte[] readFile(String filename) throws IOException {
+        Path path = Paths.get(filename);
+        return Files.readAllBytes(path);
     }
 
-    public void writeFile(){}
+    public void writeFile(String filename, String text) throws IOException {
+        Path path = Paths.get(filename);
+        Files.write(path, text.getBytes());
+    }
 
     public void moveFile(String filename, String newFilename) throws IOException {
         Path currentFile = Paths.get(filename);

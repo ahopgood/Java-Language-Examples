@@ -3,10 +3,7 @@ package com.alexander.java.examples.java7.files;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
@@ -181,6 +178,63 @@ public class FileHelpersTest {
                 output.delete();
             }
         }
+    }
+
+    @Test
+    public void testReadFile() throws IOException {
+        String filename = "testfile.txt";
+        String text = "This is a test file";
+        File source = new File(filename);
+        //Write come content to verify the file copy operation
+        try ( BufferedWriter writer = new BufferedWriter(new FileWriter(source)) ){
+            writer.write("This is a test file");
+            writer.close();
+        }
+        try {
+            assertTrue(source.exists());
+            assertTrue(source.isFile());
+            byte[] output = helper.readFile(filename);
+            assertEquals(new String(output), text);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (source.exists()) {
+                source.delete();
+            }
+        }
+
+    }
+
+    @Test
+    public void testWriteFile() throws IOException {
+        String filename = "testfile.txt";
+        String text = "This is a test file";
+        File source = new File(filename);
+        //Write come content to verify the file copy operation
+        try ( BufferedWriter writer = new BufferedWriter(new FileWriter(source)) ){
+            writer.write("This is a test file");
+            writer.close();
+        }
+        try {
+            assertTrue(source.exists());
+            assertTrue(source.isFile());
+            helper.writeFile(filename, text);
+
+            String output = null;
+            try (BufferedReader reader = new BufferedReader(new FileReader(source))){
+                output = reader.readLine();
+                reader.close();
+            }
+
+            assertEquals(text, output);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (source.exists()) {
+                source.delete();
+            }
+        }
+
     }
 
     @Test
