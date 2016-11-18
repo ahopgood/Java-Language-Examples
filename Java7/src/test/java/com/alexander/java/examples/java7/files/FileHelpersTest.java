@@ -2,14 +2,11 @@ package com.alexander.java.examples.java7.files;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.ParallelComputer;
 
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.Buffer;
-import java.nio.file.Path;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -95,6 +92,41 @@ public class FileHelpersTest {
     }
 
     @Test
+    public void testHardLink() throws IOException {
+        String filename = "testfile.txt";
+        File source = new File(filename);
+        //Write come content to verify the file copy operation
+        try ( BufferedWriter writer = new BufferedWriter(new FileWriter(source)) ){
+            writer.write("This is a test file");
+            writer.close();
+        }
+
+        String linkname = "mylink.txt";
+        File link = new File(linkname);
+        try {
+            assertTrue(source.exists());
+            assertTrue(source.isFile());
+            System.out.println(source.length());
+
+            helper.createHardLink(filename, linkname);
+            assertTrue(link.exists());
+            assertTrue(link.isFile());
+            assertEquals(source.length(), link.length());
+            assertEquals(source.lastModified(), link.lastModified());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (source.exists()) {
+                source.delete();
+            }
+            if (link.exists()){
+                link.delete();
+            }
+        }
+    }
+
+    @Test
     public void testDeleteFile(){
         String filename = "testfile.txt";
         File output = new File(filename);
@@ -112,7 +144,6 @@ public class FileHelpersTest {
             }
         }
     }
-
 
     @Test
     public void testMoveFile(){

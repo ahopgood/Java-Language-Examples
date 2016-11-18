@@ -35,6 +35,12 @@ public class FileHelpers {
         Files.createFile(path);
     }
 
+    public void createHardLink(String filename, String link) throws IOException {
+        Path path = Paths.get(filename);
+        Path linkPath = Paths.get(link);
+        Files.createLink(linkPath, path);
+    }
+
     public void delete(String filename) throws IOException {
         Path path = Paths.get(filename);
         Files.delete(path);
