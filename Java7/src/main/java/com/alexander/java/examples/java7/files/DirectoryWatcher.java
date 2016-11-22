@@ -1,37 +1,51 @@
 package com.alexander.java.examples.java7.files;
 
+import com.sun.xml.internal.stream.writers.UTF8OutputStreamWriter;
+
 import java.io.IOException;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
+import java.nio.charset.StandardCharsets;
+import java.nio.charset.spi.CharsetProvider;
+import java.nio.file.*;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static java.nio.file.StandardWatchEventKinds.*;
+import static org.junit.Assert.assertEquals;
+
 /**
- * <a href="https://docs.oracle.com/javase/tutorial/essential/io/links.html">Oracle io links page</a>
+ * <a href="https://docs.oracle.com/javase/tutorial/essential/io/notification.html">Oracle IO directory watching page</a>
+ * Obtain a {@link WatchService} from the {@link FileSystems} as a static method.
+ * Register an implementation of the {@link Watchable} interface, {@link Path} implements this.
+ * When registering you can also pass a {@link WatchEvent} to listen for, here are examples of {@link StandardWatchEventKinds}:
+ * <ul>
+ *     <li>ENTRY_CREATE</li>
+ *     <li>ENTRY_DELETE</li>
+ *     <li>ENTRY_MODIFY</li>
+ *     <li>OVERFLOW - events that might have been lost or discarded</li>
+ * </ul>
  */
-public class DirectoryWatcher implements WatchService {
+public class DirectoryWatcher {
 
-    public static void main(String[] args){
+    private WatchService watcher;
 
+    public DirectoryWatcher(){
     }
 
-
-    @Override
-    public void close() throws IOException {
-
-    }
-
-    @Override
-    public WatchKey poll() {
+    public List<WatchEvent<?>> getEvents(long waitDuration) throws IOException {
+        WatchKey key;
+        if (this.watcher != null) {
+            try {
+                key = watcher.take();
+                return key.pollEvents();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         return null;
     }
-
-    @Override
-    public WatchKey poll(long timeout, TimeUnit unit) throws InterruptedException {
-        return null;
-    }
-
-    @Override
-    public WatchKey take() throws InterruptedException {
-        return null;
+    public void registerWatcher(String directoryName) throws IOException {
+        Path directoryPath = Paths.get(directoryName);
+        watcher = FileSystems.getDefault().newWatchService();
+        directoryPath.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
     }
 }
