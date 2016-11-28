@@ -26,14 +26,6 @@ public class FileWatcherTest {
     }
 
     @Test(timeout = 10000L)
-//            expected = NoSuchFileException.class)
-    public void testWatchFile() throws IOException, InterruptedException {
-        Files.createFile(Paths.get(directoryName, fileName));
-        FileWatcher watcher = new FileWatcher();
-        watcher.registerWatcher(directoryName+"\\"+fileName);
-    }
-
-    @Test(timeout = 10000L)
     public void testWatchOnFileCreation() throws IOException, InterruptedException {
         FileWatcher watcher = new FileWatcher();
         watcher.registerWatcher(directoryName);
@@ -49,30 +41,30 @@ public class FileWatcherTest {
     @Test(timeout = 10000L)
     public void testWatchOnFileModified() throws IOException, InterruptedException {
         FileWatcher watcher = new FileWatcher();
-        watcher.registerWatcher(fileName);
-        Files.createFile(Paths.get(fileName));
-        Files.newBufferedWriter(Paths.get(fileName), StandardCharsets.UTF_8).write("test string");
+        watcher.registerWatcher(directoryName);
+        Files.createFile(Paths.get(directoryName, fileName));
+        Files.newBufferedWriter(Paths.get(directoryName, fileName), StandardCharsets.UTF_8).write("test string");
         //Pop the list of events
         List<WatchEvent<?>> events = watcher.getEvents();
 
         System.out.println(events.size()+" number of events found");
         assertEquals(StandardWatchEventKinds.ENTRY_MODIFY, events.get(1).kind());
-
+        assertEquals(fileName, events.get(0).context().toString());
     }
 
     @Test(timeout = 10000L)
     public void testWatchOnDirectoryDeletion() throws IOException, InterruptedException {
         FileWatcher watcher = new FileWatcher();
 
-        watcher.registerWatcher(fileName);
-        Files.createFile(Paths.get(fileName));
-        Files.deleteIfExists(Paths.get(fileName));
+        Files.createFile(Paths.get(directoryName, fileName));
+        watcher.registerWatcher(directoryName);
+        Files.deleteIfExists(Paths.get(directoryName, fileName));
 
         List<WatchEvent<?>> events = watcher.getEvents();
 
         System.out.println(events.size()+" number of events found");
-        assertEquals(StandardWatchEventKinds.ENTRY_DELETE, events.get(1).kind());
-
+        assertEquals(StandardWatchEventKinds.ENTRY_DELETE, events.get(0).kind());
+        assertEquals(fileName, events.get(0).context().toString());
     }
 
 }
