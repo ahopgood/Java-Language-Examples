@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The java.nio.file.Files class is a class of static methods to operate on files,
@@ -54,8 +58,13 @@ public class FileHelpers {
         Files.delete(path);
     }
 
-    public void changeAttributes(){
-
+    public void changeAttributes(String filename) throws IOException {
+        Path path = Paths.get(filename);
+        Set<PosixFilePermission> permissions = new HashSet<>();
+        permissions.add(PosixFilePermission.OTHERS_EXECUTE);
+        permissions.add(PosixFilePermission.OTHERS_READ);
+        permissions.add(PosixFilePermission.OTHERS_WRITE);
+        Files.setPosixFilePermissions(path, permissions);
     }
 
     public void useTempDirectory(){

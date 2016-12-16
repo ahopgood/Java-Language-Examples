@@ -4,6 +4,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.PosixFilePermission;
+import java.util.HashSet;
+import java.util.Set;
 
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
@@ -178,6 +184,12 @@ public class FileHelpersTest {
                 output.delete();
             }
         }
+    }
+
+    @Test
+    public void testChangeAttributes() throws IOException {
+
+
     }
 
     @Test
