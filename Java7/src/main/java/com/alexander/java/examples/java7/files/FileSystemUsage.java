@@ -37,11 +37,24 @@ public class FileSystemUsage {
         return FileSystems.newFileSystem(u, env);
     }
 
-    public FileSystem addFile(File file, FileSystem fileSystem){
+    public FileSystem addFile(File file, FileSystem fileSystem) throws IOException {
+        Path sourcePath = Paths.get(file.toURI());
+        Path destinationPath = fileSystem.getPath(file.getName());
+//        Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(sourcePath, destinationPath);
         return fileSystem;
     }
 
-    public File extractFile(String filepath, FileSystem fileSystem){
-        return new File("");
+    public File extractFile(String filepath, FileSystem fileSystem) throws IOException {
+        Path sourcepath = fileSystem.getPath(filepath);
+        Path destinationPath = Paths.get(sourcepath.getFileName().toString());
+        Files.copy(sourcepath, destinationPath);
+        return destinationPath.toFile();
+    }
+
+    public FileSystem removeFile(String filepath, FileSystem fileSystem) throws IOException {
+        Path path = fileSystem.getPath(filepath);
+        Files.delete(path);
+        return fileSystem;
     }
 }

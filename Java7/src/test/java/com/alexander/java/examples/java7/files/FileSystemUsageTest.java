@@ -1,13 +1,10 @@
 package com.alexander.java.examples.java7.files;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import com.sun.nio.zipfs.ZipFileSystem;
+import com.sun.nio.zipfs.ZipPath;
+import org.junit.*;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Iterator;
@@ -21,35 +18,35 @@ import static org.junit.Assert.*;
  */
 public class FileSystemUsageTest {
 
-    FileSystemUsage usage = new FileSystemUsage();
+    static String separator = System.getProperty("file.separator");
+    static FileSystemUsage usage = new FileSystemUsage();
+    static String packagePath = FileSystemUsageTest.class.getPackage().getName().replace(".", separator);
+    static String projectPath = "src"+separator+"main"+separator+"resources";
+    static String uri = "test.zip";
+    static FileSystem fileSystem;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeClass
+    public static void setUpBefore() throws Exception {
+        Path zipPath = Paths.get(projectPath, packagePath, uri);
+        System.out.println("zip archive location:");
+        System.out.println(zipPath.toString());
 
+        assertTrue(Files.exists(zipPath));
+        System.out.println("zip archive file permissions:");
+        System.out.println(Files.getPosixFilePermissions(zipPath).toString());
+
+        if (fileSystem == null || !fileSystem.isOpen()) {
+            fileSystem = usage.getZipFilesystem(zipPath.toAbsolutePath().toString());
+        }
     }
 
-    @After
-    public void tearDown() throws Exception {
-
+    @AfterClass
+    public static void tearDownAfter() throws IOException {
+//        fileSystem.close();
     }
 
     @Test
     public void testGetZipFilesystem() throws Exception {
-        String separator = System.getProperty("file.separator");
-        String packagePath = this.getClass().getPackage().getName().replace(".", separator);
-        String projectPath = "src"+separator+"main"+separator+"resources";
-        String uri = "test.zip";
-
-        Path path = Paths.get(projectPath, packagePath, uri);
-
-        System.out.println("zip archive location:");
-        System.out.println(path.toAbsolutePath().toString());
-        assertTrue(Files.exists(path));
-        System.out.println("zip archive file permissions:");
-        System.out.println(Files.getPosixFilePermissions(path).toString());
-
-        FileSystem fileSystem = usage.getZipFilesystem(path.toAbsolutePath().toString());
-
         Path doc = fileSystem.getPath("/doc-a.txt");
         System.out.println(doc.toString());
 
@@ -62,30 +59,19 @@ public class FileSystemUsageTest {
         assertEquals(1, visitor.getFilesFound().size());
         assertEquals("doc-a.txt", visitor.getFilesFound().get(0).getFileName().toString());
         System.out.println(visitor.getFilesFound().get(0).getFileName().getFileSystem());
+//        fileSystem.close();
+        //Not closing the file system as that'll actually save the file and then we cannot re-add it.
+
     }
 
 
     @Test
     public void testAddFile() throws Exception {
-        String separator = System.getProperty("file.separator");
-        String packagePath = this.getClass().getPackage().getName().replace(".", separator);
-        String projectPath = "src"+separator+"main"+separator+"resources";
-        String uri = "test.zip";
-
-        Path path = Paths.get(projectPath, packagePath, uri);
-
-        System.out.println(path.toString());
-        assertTrue(Files.exists(path));
-        System.out.println(Files.getPosixFilePermissions(path).toString());
-
-        FileSystem fileSystem = usage.getZipFilesystem(path.toAbsolutePath().toString());
-        fileSystem.getFileStores();
-
-        Path internalFileInZip = fileSystem.getPath("/test/doc-b.txt");
-        System.out.println("Internal File "+internalFileInZip.toString());
-
-        Path externalFile = Paths.get(projectPath, packagePath, "doc-b.txt");
-        Files.copy(externalFile, internalFileInZip, StandardCopyOption.REPLACE_EXISTING);
+        usage.addFile(Paths.get(projectPath, packagePath, "doc-b.txt").toFile(), fileSystem);
+//        System.out.println("Is open?:"+fileSystem.isOpen());
+        assertTrue(fileSystem.isOpen());
+//        System.out.println("Is readonly?:"+fileSystem.isReadOnly());
+        assertFalse(fileSystem.isReadOnly());
 
         Iterator<Path> iter = fileSystem.getRootDirectories().iterator();
         FileTypesVisitor visitor = new FileTypesVisitor();
@@ -93,24 +79,49 @@ public class FileSystemUsageTest {
             Path rootDir = iter.next();
             Files.walkFileTree(rootDir, visitor);
         }
-        assertFalse(fileSystem.isReadOnly());
         assertEquals(2, visitor.getFilesFound().size());
         assertEquals("doc-b.txt", visitor.getFilesFound().get(0).getFileName().toString());
         System.out.println(visitor.getFilesFound().get(0).getFileName().getFileSystem());
         assertEquals("doc-a.txt", visitor.getFilesFound().get(1).getFileName().toString());
         System.out.println(visitor.getFilesFound().get(1).getFileName().getFileSystem());
-        //investigate ZipPath type to understand more about zip file contents
-        BufferedReader reader = new BufferedReader(new FileReader(visitor.getFilesFound().get(1).toFile()));
-        String line = reader.readLine();
-        while (line != null){
-            System.out.println(line);
-            reader.readLine();
-        }
+//        fileSystem.close();
+        //Not closing the file system as that'll actually save the file and then we cannot re-add it.
+        Files.delete(fileSystem.getPath("doc-b.txt"));
     }
 
     @Test
     public void testExtractFile() throws Exception {
+        File file = null;
+        try {
+            file = usage.extractFile("/doc-a.txt", fileSystem);
+            assertTrue(file.exists());
+            System.out.println(file.getAbsolutePath());
+        } finally {
+            if (file != null && file.exists()) {
+                file.delete();
+            }
+        }
+    }
 
+    @Test
+    public void testRemoveFile() throws Exception {
+        usage.removeFile("/doc-a.txt", fileSystem);
+//        System.out.println("Is open?:"+fileSystem.isOpen());
+        assertTrue(fileSystem.isOpen());
+//        System.out.println("Is readonly?:"+fileSystem.isReadOnly());
+        assertFalse(fileSystem.isReadOnly());
+
+        Iterator<Path> iter = fileSystem.getRootDirectories().iterator();
+        FileTypesVisitor visitor = new FileTypesVisitor();
+        while (iter.hasNext()){
+            Path rootDir = iter.next();
+            Files.walkFileTree(rootDir, visitor);
+        }
+        assertEquals(0, visitor.getFilesFound().size());
+
+//        fileSystem.close();
+        //Not closing the file system as that'll actually save the file and then we cannot re-add it.
+        Files.copy(Paths.get(projectPath, packagePath, "doc-a.txt"), fileSystem.getPath("doc-a.txt"));
     }
 
     /**
