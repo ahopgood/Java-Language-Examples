@@ -18,8 +18,8 @@ import java.util.Set;
  * {@link java.nio.file.FileSystems} is a factory for the {@link FileSystem} (interface)
  * One can create a custom filesystem by implementing {@link java.nio.file.spi.FileSystemProvider} for URI, caching and file
  * handling and by implementing {@link FileSystem} for Roots, Read-Write and file store.
- * {@link https://docs.oracle.com/javase/7/docs/technotes/guides/io/fsp/zipfilesystemproviderprops.html} provides a list
- * of the environmental properties available for the {@link https://docs.oracle.com/javase/7/docs/technotes/guides/io/fsp/zipfilesystemprovider.html}.
+ * <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/io/fsp/zipfilesystemproviderprops.html">Zip Filesystem Provider Properties</a> provides a list
+ * of the environmental properties available for the <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/io/fsp/zipfilesystemprovider.html">Zip Filesystem Provider</a></a>.
  * Created by alexhopgood on 05/12/16.
  */
 public class FileSystemUsage {
