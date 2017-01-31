@@ -93,17 +93,17 @@ public class BitwiseOperatorsTest {
     }
 
     @Test
-    public void testAndBitPatterns_(){
+    public void testAndBitPatterns_zeroBits(){
         String allOnes = "0000";
         String allZeros = "0001";
         assertEquals("0001", operators.andBitPattern(allOnes, allZeros));
     }
 
     @Test
-    public void testAndBitPatterns_(){
+    public void testAndBitPatterns_alternateBits(){
         String allOnes = "0101";
         String allZeros = "1010";
-        assertEquals("1000", operators.andBitPattern(allOnes, allZeros));
+        assertEquals("1111", operators.andBitPattern(allOnes, allZeros));
     }
 
 }
