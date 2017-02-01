@@ -24,8 +24,23 @@ public class BitwiseOperators {
     }
 
     public String andBitPattern(String value1, String value2){
+        int binaryValue1 = createFromBinary(value1);
+        System.out.println(binaryValue1);
+        int binaryValue2 = createFromBinary(value2);
+        System.out.println(binaryValue2);
+        int andValue = binaryValue1&binaryValue2;
+        System.out.println(andValue);
+        return Integer.toBinaryString(andValue);
+    }
 
-        return "";
+    public String orBitPattern(String value1, String value2){
+        int binaryValue1 = createFromBinary(value1);
+        System.out.println(binaryValue1);
+        int binaryValue2 = createFromBinary(value2);
+        System.out.println(binaryValue2);
+        int orValue = binaryValue1|binaryValue2;
+        System.out.println(orValue);
+        return Integer.toBinaryString(orValue);
     }
 
     public static int createFromBinary(String binary){
