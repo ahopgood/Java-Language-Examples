@@ -43,6 +43,32 @@ public class BitwiseOperators {
         return Integer.toBinaryString(orValue);
     }
 
+    public String signedLeftShiftPattern(String value1, int shift){
+        System.out.println(value1);
+        int binaryValue1 = createFromBinary(value1);
+        System.out.println(binaryValue1);
+        int shiftedValue = binaryValue1<<shift;
+        return Integer.toBinaryString(shiftedValue);
+    }
+
+    public String signedRightShiftPattern(String value1, int shift){
+        System.out.println(value1);
+        int binaryValue1 = createFromBinary(value1);
+        System.out.println(binaryValue1);
+        int shiftedValue = binaryValue1>>shift;
+        return Integer.toBinaryString(shiftedValue);
+    }
+
+    public String signedRightShiftPaddingPattern(String value1, int shift){
+        System.out.println(value1);
+        int binaryValue1 = createFromBinary(value1);
+        System.out.println(binaryValue1);
+        int shiftedValue = binaryValue1>>>shift;
+        return Integer.toBinaryString(shiftedValue);
+    }
+
+//    public String
+
     public static int createFromBinary(String binary){
         return Integer.parseInt(binary, 2);
     }

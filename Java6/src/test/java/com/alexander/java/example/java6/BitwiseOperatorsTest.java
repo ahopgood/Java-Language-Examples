@@ -126,4 +126,46 @@ public class BitwiseOperatorsTest {
         String allZeros = "1010";
         assertEquals("1111", operators.orBitPattern(allOnes, allZeros));
     }
+
+    @Test
+    public void testSignedLeftShiftPattern_allOnesShiftByOne(){
+        String allOnes = "1111";
+        assertEquals("11110", operators.signedLeftShiftPattern(allOnes, 1));
+    }
+
+    @Test
+    public void testSignedLeftShiftPattern_allZerosShiftByOne(){
+        String allOnes = "0000";
+        assertEquals("0", operators.signedLeftShiftPattern(allOnes, 1));
+    }
+
+    @Test
+    public void testSignedRightShiftPattern_allOnesShiftByOne(){
+        String allOnes = "1111";
+        assertEquals("111", operators.signedRightShiftPattern(allOnes, 1));
+    }
+
+    @Test
+    public void testSignedRightShiftPattern_allZerosShiftByOne(){
+        String allOnes = "0000";
+        assertEquals("0", operators.signedRightShiftPattern(allOnes, 1));
+    }
+
+    @Test
+    public void testSignedRightShiftPaddingPattern_allOnesShiftByOne(){
+        String allOnes = "1111";
+        assertEquals("111", operators.signedRightShiftPaddingPattern(allOnes, 1));
+    }
+
+    @Test
+    public void testSignedRightShiftPaddingPattern_LeastSignificantBitIsZeroShiftByOne(){
+        String allOnes = "1110";
+        assertEquals("111", operators.signedRightShiftPaddingPattern(allOnes, 1));
+    }
+
+    @Test
+    public void testSignedRightShiftPaddingPattern_allZerosShiftByOne(){
+        String allOnes = "0000";
+        assertEquals("0", operators.signedRightShiftPaddingPattern(allOnes, 1));
+    }
 }
