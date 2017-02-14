@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
 
 /**
@@ -34,12 +35,22 @@ public class StreamOperationsTest {
     }
 
     @Test
-    public void testCountInLoop() throws Exception {
-        int tradArtists = op.countInLoop_traditional(artists);
-        assertEquals(2, tradArtists);
+    public void testMap(){
+        List<String> artistNames = asList("The Beatles", "The Prodigy", "Suns of Thunder", "Oasis", "The Coral");
+        List<String> artistNames_traditional = op.map_traditional(artists);
+        List<String> artistNames_stream = op.map_stream(artists);
 
-        long streamArtists = op.countInLoop_stream(artists);
-        assertEquals(2, streamArtists);
+        assertEquals(artistNames, artistNames_traditional);
+        assertEquals(artistNames, artistNames_stream);
+    }
+
+    @Test
+    public void testFlatMap(){
+        List<Integer> list1 = asList(1,2,3);
+        List<Integer> list2 = asList(4,5,6);
+        List<Integer> expected = asList(1,2,3,4,5,6);
+        assertEquals(expected, op.flatMap_traditional(list1, list2));
+        assertEquals(expected, op.flatMap_stream(list1, list2));
     }
 
     @Test
@@ -67,5 +78,16 @@ public class StreamOperationsTest {
         assertEquals(true, streamArtists.contains(theBeatles));
         assertEquals(true, streamArtists.contains(theCoral));
     }
+
+    @Test
+    public void testCountInLoop() throws Exception {
+        int tradArtists = op.countInLoop_traditional(artists);
+        assertEquals(2, tradArtists);
+
+        long streamArtists = op.countInLoop_stream(artists);
+        assertEquals(2, streamArtists);
+    }
+
+
 
 }
