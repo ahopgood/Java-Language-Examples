@@ -140,9 +140,53 @@ public class BitwiseOperatorsTest {
     }
 
     @Test
-    public void testSignedRightShiftPattern_allOnesShiftByOne(){
-        String allOnes = "1111";
-        assertEquals("111", operators.signedRightShiftPattern(allOnes, 1));
+    public void testSignedRightShiftPattern_negativeNumber_minus1(){
+        String minusOneInBinary = "-0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"001";
+        assertEquals("11111111111111111111111111111111", operators.signedRightShiftPattern(minusOneInBinary, 1));
+    }
+
+
+    @Test
+    public void testSignedRightShiftPattern_negativeNumber_minus2(){
+        String minusTwoInBinarySigned = "-0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"010";
+        assertEquals("11111111111111111111111111111111", operators.signedRightShiftPattern(minusTwoInBinarySigned, 1));
+    }
+
+    @Test
+    public void testSignedRightShiftPattern_negativeNumber_minus4(){
+        String minusFourInBinarySigned = "-0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"100";
+        assertEquals("11111111111111111111111111111110", operators.signedRightShiftPattern(minusFourInBinarySigned, 1));
+    }
+
+    @Test
+    public void testSignedRightShiftPattern_negativeNumber_minus8(){
+        String minusEightInBinarySigned = "-0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"0001"+"000";
+        assertEquals("11111111111111111111111111111100", operators.signedRightShiftPattern(minusEightInBinarySigned, 1));
+    }
+
+    @Test
+    public void testSignedRightShiftPattern_positiveNumber_1(){
+        String oneInBinary = "0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"001";
+        assertEquals("0", operators.signedRightShiftPattern(oneInBinary, 1));
+    }
+
+
+    @Test
+    public void testSignedRightShiftPattern_positiveNumber_2(){
+        String twoInBinarySigned = "0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"010";
+        assertEquals("1", operators.signedRightShiftPattern(twoInBinarySigned, 1));
+    }
+
+    @Test
+    public void testSignedRightShiftPattern_positiveNumber_4(){
+        String fourInBinarySigned = "0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"100";
+        assertEquals("10", operators.signedRightShiftPattern(fourInBinarySigned, 1));
+    }
+
+    @Test
+    public void testSignedRightShiftPattern_positiveNumber_8(){
+        String eightInBinarySigned = "0000"+"0000"+"0000"+"0000"+"0000"+"0000"+"0001"+"000";
+        assertEquals("100", operators.signedRightShiftPattern(eightInBinarySigned, 1));
     }
 
     @Test
@@ -152,20 +196,20 @@ public class BitwiseOperatorsTest {
     }
 
     @Test
-    public void testSignedRightShiftPaddingPattern_allOnesShiftByOne(){
+    public void testlogicalRightShiftPattern_allOnesShiftByOne(){
         String allOnes = "1111";
-        assertEquals("111", operators.signedRightShiftPaddingPattern(allOnes, 1));
+        assertEquals("111", operators.logicalRightShiftPattern(allOnes, 1));
     }
 
     @Test
-    public void testSignedRightShiftPaddingPattern_LeastSignificantBitIsZeroShiftByOne(){
-        String allOnes = "1110";
-        assertEquals("111", operators.signedRightShiftPaddingPattern(allOnes, 1));
+    public void testlogicalRightShiftPattern_LeastSignificantBitIsZeroShiftByOne(){
+        String minusOneInBinary = "1111"+"1111"+"1111"+"1111"+"1111"+"1111"+"1111"+"1111";
+        assertEquals("1111"+"1111"+"1111"+"1111"+"1111"+"1111"+"1111"+"1111", operators.logicalRightShiftPattern(minusOneInBinary, 1));
     }
 
     @Test
-    public void testSignedRightShiftPaddingPattern_allZerosShiftByOne(){
+    public void testlogicalRightShiftPattern_allZerosShiftByOne(){
         String allOnes = "0000";
-        assertEquals("0", operators.signedRightShiftPaddingPattern(allOnes, 1));
+        assertEquals("0", operators.logicalRightShiftPattern(allOnes, 1));
     }
 }

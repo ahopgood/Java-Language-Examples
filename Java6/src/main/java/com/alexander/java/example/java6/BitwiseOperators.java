@@ -52,18 +52,25 @@ public class BitwiseOperators {
     }
 
     public String signedRightShiftPattern(String value1, int shift){
-        System.out.println(value1);
+        System.out.println("Signed Binary:"+value1);
         int binaryValue1 = createFromBinary(value1);
-        System.out.println(binaryValue1);
+        System.out.println("Decimal:"+binaryValue1);
+        System.out.println("Binary:"+Integer.toBinaryString(binaryValue1));
+        System.out.println("Max value "+Integer.MAX_VALUE);
+        System.out.println("Min value "+Integer.MIN_VALUE);
         int shiftedValue = binaryValue1>>shift;
+        System.out.println("Shifted by "+shift+":"+shiftedValue);
         return Integer.toBinaryString(shiftedValue);
     }
 
-    public String signedRightShiftPaddingPattern(String value1, int shift){
+    public String logicalRightShiftPattern(String value1, int shift){
         System.out.println(value1);
         int binaryValue1 = createFromBinary(value1);
         System.out.println(binaryValue1);
+        System.out.println("Max value "+Integer.MAX_VALUE);
+        System.out.println("Min value "+Integer.MIN_VALUE);
         int shiftedValue = binaryValue1>>>shift;
+        System.out.println(shiftedValue);
         return Integer.toBinaryString(shiftedValue);
     }
 
