@@ -129,9 +129,16 @@ public class StreamOperations {
                 .get();
     }
 
-//    public Track max_reduce(List<Track> list){
-//        return list.stream()
-//                .reduce(Comparator.comparing(track -> track..getLength()))
-//                .get();
-//    }
+    public Integer reduceSum_stream(List<Integer> list){
+        return list.stream()
+                .reduce(0, (acc, element) -> acc + element);
+    }
+
+    public Integer reduceSum_traditional(List<Integer> list){
+        Integer sum = new Integer(0);
+        for (Integer i : list){
+            sum += i;
+        }
+        return sum;
+    }
 }

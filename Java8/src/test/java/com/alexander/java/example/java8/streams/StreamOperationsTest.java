@@ -130,5 +130,12 @@ public class StreamOperationsTest {
     }
 
 
+    @Test
+    public void testReduceSum(){
+        List<Integer> numbers = asList(1,2,3);
+        assertEquals(6, op.reduceSum_stream(numbers).intValue());
+        assertEquals(6, op.reduceSum_traditional(numbers).intValue());
+    }
+
 
 }
