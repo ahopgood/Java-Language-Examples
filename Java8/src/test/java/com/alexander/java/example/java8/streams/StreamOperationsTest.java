@@ -25,6 +25,21 @@ public class StreamOperationsTest {
     Artist sunsOfThunder = new Artist().setFrom("Neath").setName("Suns of Thunder");
     Artist oasis = new Artist().setFrom("Manchester").setName("Oasis");
     Artist theCoral = new Artist().setFrom("liverpool").setName("The Coral");
+
+    static List<Track> tracks = new LinkedList<Track>();
+
+    Track misery = new Track().setLength(109).setName("misery");
+    Track jericho = new Track().setLength(222).setName("Jericho");
+    Track swingit = new Track().setLength(270).setName("Swing it like you love it");
+    Track shakermaker = new Track().setLength(370).setName("Shakermaker");
+    Track spanish_main = new Track().setLength(113).setName("Spanish Main");
+
+    Album pleasePleaseMe = new Album().setArtist(theBeatles).setTrackList(asList(misery));
+    Album experience = new Album().setArtist(theProdigy).setTrackList(asList(jericho));
+    Album putYourMusicWhereYourMouthIs = new Album().setArtist(sunsOfThunder).setTrackList(asList(swingit));
+    Album defintelyMaybe = new Album().setArtist(oasis).setTrackList(asList(shakermaker));
+    Album theCoralAlbum = new Album().setArtist(theCoral).setTrackList(asList(spanish_main));
+
     @Before
     public void setUp(){
         artists.add(theBeatles);
@@ -32,6 +47,32 @@ public class StreamOperationsTest {
         artists.add(sunsOfThunder);
         artists.add(oasis);
         artists.add(theCoral);
+
+        tracks.add(misery);
+        tracks.add(jericho);
+        tracks.add(swingit);
+        tracks.add(shakermaker);
+        tracks.add(spanish_main);
+    }
+
+    @Test
+    public void testMax(){
+        Track longestTrack = shakermaker;
+        Track track_traditional = op.max_traditional(tracks);
+        Track track_strean = op.max_stream(tracks);
+
+        assertEquals(longestTrack, track_traditional);
+        assertEquals(longestTrack, track_strean);
+    }
+
+    @Test
+    public void testMin(){
+        Track shortestTrack = misery;
+        Track track_traditional = op.min_traditional(tracks);
+        Track track_strean = op.min_stream(tracks);
+
+        assertEquals(shortestTrack, track_traditional);
+        assertEquals(shortestTrack, track_strean);
     }
 
     @Test

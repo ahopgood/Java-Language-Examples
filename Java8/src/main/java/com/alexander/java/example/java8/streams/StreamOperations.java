@@ -113,6 +113,22 @@ public class StreamOperations {
                 .get();
     }
 
+    public Track min_traditional(List<Track> tracks){
+        Track shortest = tracks.get(0);
+        for (Track track : tracks){
+            if (track.getLength() < shortest.getLength()){
+                shortest = track;
+            }
+        }
+        return shortest;
+    }
+
+    public Track min_stream(List<Track> tracks){
+        return tracks.stream()
+                .min(Comparator.comparing(track -> track.getLength()))
+                .get();
+    }
+
 //    public Track max_reduce(List<Track> list){
 //        return list.stream()
 //                .reduce(Comparator.comparing(track -> track..getLength()))
