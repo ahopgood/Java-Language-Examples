@@ -141,4 +141,52 @@ public class StreamOperations {
         }
         return sum;
     }
+
+    public Set<String> getLongTracks_legacy(List<Album> albums){
+        Set<String> tracknames = new HashSet<String>();
+        for (Album album : albums){
+            for (Track track : album.getTrackList()){
+                if (track.getLength() > 150){
+                    tracknames.add(track.getName());
+                }
+            }
+        }
+        return tracknames;
+    }
+
+    public Set<String> getLongTracks_refactor1(List<Album> albums){
+        Set<String> tracknames = new HashSet<String>();
+        albums.stream()
+                .forEach(album -> {
+                    album.getTrackList().stream()
+                            .forEach(track -> {
+                                if (track.getLength() > 150){
+                                    tracknames.add(track.getName());
+                                }
+                            });
+                });
+        return tracknames;
+    }
+
+    public Set<String> getLongTracks_refactor2(List<Album> albums){
+        Set<String> tracknames = new HashSet<String>();
+        albums.stream()
+                .forEach(album -> {
+                    album.getTrackList().stream()
+                            .filter(track -> track.getLength() > 150)
+                            .map(track -> track.getName())
+                            .forEach(string -> tracknames.add(string));
+                });
+        return tracknames;
+    }
+
+    public Set<String> getLongTracks_refactor3(List<Album> albums){
+        Set<String> tracknames = new HashSet<String>();
+        albums.stream()
+                .flatMap(album -> album.getTrackList().stream())
+                .filter(track -> track.getLength() > 150)
+                .map(track -> track.getName())
+                .forEach(string -> tracknames.add(string));
+        return tracknames;
+    }
 }
