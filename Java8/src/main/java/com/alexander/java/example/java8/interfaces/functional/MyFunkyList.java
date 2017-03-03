@@ -20,15 +20,4 @@ public class MyFunkyList<T> extends LinkedList<T> {
         }
         return filtered;
     }
-
-    public LinkedList<T> funkyFilter(MyIntegerFunkyInterface funky){
-        LinkedList<T> filtered = new LinkedList<>();
-        for (T t : this){
-            if (funky.doSomething(t)){
-                filtered.add(t);
-            }
-        }
-        return filtered;
-    }
-
 }
