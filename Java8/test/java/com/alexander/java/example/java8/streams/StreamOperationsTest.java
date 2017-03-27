@@ -34,11 +34,16 @@ public class StreamOperationsTest {
     Track shakermaker = new Track().setLength(370).setName("Shakermaker");
     Track spanish_main = new Track().setLength(113).setName("Spanish Main");
 
+    static List<Album> albums = new LinkedList<Album>();
+
     Album pleasePleaseMe = new Album().setArtist(theBeatles).setTrackList(asList(misery));
     Album experience = new Album().setArtist(theProdigy).setTrackList(asList(jericho));
     Album putYourMusicWhereYourMouthIs = new Album().setArtist(sunsOfThunder).setTrackList(asList(swingit));
     Album defintelyMaybe = new Album().setArtist(oasis).setTrackList(asList(shakermaker));
     Album theCoralAlbum = new Album().setArtist(theCoral).setTrackList(asList(spanish_main));
+
+
+
 
     @Before
     public void setUp(){
@@ -53,6 +58,13 @@ public class StreamOperationsTest {
         tracks.add(swingit);
         tracks.add(shakermaker);
         tracks.add(spanish_main);
+
+        albums.add(pleasePleaseMe);
+        albums.add(experience);
+        albums.add(putYourMusicWhereYourMouthIs);
+        albums.add(defintelyMaybe);
+        albums.add(theCoralAlbum);
+
     }
 
     @Test
@@ -137,5 +149,16 @@ public class StreamOperationsTest {
         assertEquals(6, op.reduceSum_traditional(numbers).intValue());
     }
 
+    @Test
+    public void testGetLongTracks(){
+        Set<String> expected = new HashSet<String>();
+        expected.add("Jericho");
+        expected.add("Swing it like you love it");
+        expected.add("Shakermaker");
+        assertEquals(expected, op.getLongTracks_legacy(albums));
+        assertEquals(expected, op.getLongTracks_refactor1(albums));
+        assertEquals(expected, op.getLongTracks_refactor2(albums));
+        assertEquals(expected, op.getLongTracks_refactor3(albums));
+    }
 
 }

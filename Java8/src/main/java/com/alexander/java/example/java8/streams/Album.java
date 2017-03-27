@@ -11,7 +11,7 @@ public class Album {
     private Artist artist;
 
     public List<Track> getTrackList() {
-        return trackList;
+        return this.trackList;
     }
 
     public Album setTrackList(List<Track> trackList) {
