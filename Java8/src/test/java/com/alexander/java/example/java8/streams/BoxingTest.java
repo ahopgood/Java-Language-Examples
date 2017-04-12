@@ -8,8 +8,6 @@ import java.util.Random;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import static java.util.stream.Collectors.toList;
-
 /**
  * Created by alexhopgood on 12/04/17.
  */
@@ -45,8 +43,6 @@ public class BoxingTest {
         }
     }
 
-
-
     @Before
     public void setUp(){
     }
@@ -58,35 +54,42 @@ public class BoxingTest {
 
     @Test
     public void primitiveVsBoxedTest(){
-
+        run(tenPrimitive);
+        run(tenBoxed);
+        run(tenPrimitive);
+        run(tenBoxed);
         run(tenPrimitive);
         run(tenBoxed);
 
-        run(tenPrimitive);
-        run(tenBoxed);
-
-        run(tenPrimitive);
-        run(tenBoxed);
-
-
+        run(thousandPrimitive);
+        run(thousandBoxed);
+        run(thousandPrimitive);
+        run(thousandBoxed);
         run(thousandPrimitive);
         run(thousandBoxed);
 
-        run(thousandPrimitive);
-        run(thousandBoxed);
-
-        run(thousandPrimitive);
-        run(thousandBoxed);
-
-
         run(millionPrimitive);
         run(millionBoxed);
-
         run(millionPrimitive);
         run(millionBoxed);
-
         run(millionPrimitive);
         run(millionBoxed);
+    }
+
+    @Test
+    public void testParallel(){
+        run(millionBoxed);
+        run(millionBoxed);
+        run(millionBoxed);
+
+
+        runParallel(millionBoxed);
+        runParallel(millionBoxed);
+        runParallel(millionBoxed);
+
+        runParallel(millionPrimitive);
+        runParallel(millionPrimitive);
+        runParallel(millionPrimitive);
     }
 
     private void run(int[] array){
@@ -113,6 +116,31 @@ public class BoxingTest {
         Date end = new Date();
         stats.append(". Running time: "+(end.getTime()-start.getTime())+"ms");
         System.out.println(stats.toString());
+    }
 
+    private void runParallel(Integer[] array){
+        StringBuilder stats = new StringBuilder();
+        Date start = new Date();
+        stats.append(array.length+" Boxed Parallel: ");
+        stats.append(
+                Stream.of(array).parallel()
+                        .filter(x -> (x > 4))
+                        .count());
+        Date end = new Date();
+        stats.append(". Running time: "+(end.getTime()-start.getTime())+"ms");
+        System.out.println(stats.toString());
+    }
+
+    private void runParallel(int[] array){
+        StringBuilder stats = new StringBuilder();
+        Date start = new Date();
+        stats.append(array.length+" Primitive Parallel: ");
+        stats.append(
+                IntStream.of(array).parallel()
+                        .filter(x -> (x > 4))
+                        .count());
+        Date end = new Date();
+        stats.append(". Running time: "+(end.getTime()-start.getTime())+"ms");
+        System.out.println(stats.toString());
     }
 }
