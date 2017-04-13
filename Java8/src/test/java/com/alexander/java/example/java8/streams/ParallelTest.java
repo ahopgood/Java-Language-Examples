@@ -1,6 +1,7 @@
 package com.alexander.java.example.java8.streams;
 
-import org.junit.*;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.util.Comparator;
 import java.util.Date;
@@ -11,8 +12,7 @@ import java.util.stream.Stream;
 /**
  * Created by alexhopgood on 12/04/17.
  */
-public class BoxingTest {
-
+public class ParallelTest {
     static int ten = 10;
     static int thousand = 10_000;
     static int million = 1_000_000_00;
@@ -43,98 +43,89 @@ public class BoxingTest {
         }
     }
 
-    @Before
-    public void setUp(){
-    }
+    @Test
+    public void testParallelFilter(){
+        BoxingTest boxing = new BoxingTest();
+        boxing.runFilter(millionBoxed);
+        boxing.runFilter(millionBoxed);
+        boxing.runFilter(millionBoxed);
 
-    @After
-    public void tearDown(){
+        boxing.runFilter(millionPrimitive);
+        boxing.runFilter(millionPrimitive);
+        boxing.runFilter(millionPrimitive);
 
+        runParallelFilter(millionBoxed);
+        runParallelFilter(millionBoxed);
+        runParallelFilter(millionBoxed);
+
+        runParallelFilter(millionPrimitive);
+        runParallelFilter(millionPrimitive);
+        runParallelFilter(millionPrimitive);
     }
 
     @Test
-    public void primitiveVsBoxedTest(){
-        runFilter(tenPrimitive);
-        runFilter(tenBoxed);
-        runFilter(tenPrimitive);
-        runFilter(tenBoxed);
-        runFilter(tenPrimitive);
-        runFilter(tenBoxed);
+    public void testParallelMax(){
+        BoxingTest boxing = new BoxingTest();
+        boxing.runMax(millionBoxed);
+        boxing.runMax(millionBoxed);
+        boxing.runMax(millionBoxed);
 
-        runFilter(thousandPrimitive);
-        runFilter(thousandBoxed);
-        runFilter(thousandPrimitive);
-        runFilter(thousandBoxed);
-        runFilter(thousandPrimitive);
-        runFilter(thousandBoxed);
+        boxing.runMax(millionPrimitive);
+        boxing.runMax(millionPrimitive);
+        boxing.runMax(millionPrimitive);
 
-        runFilter(millionPrimitive);
-        runFilter(millionBoxed);
-        runFilter(millionPrimitive);
-        runFilter(millionBoxed);
-        runFilter(millionPrimitive);
-        runFilter(millionBoxed);
+        runParallelMax(millionBoxed);
+        runParallelMax(millionBoxed);
+        runParallelMax(millionBoxed);
+
+        runParallelMax(millionPrimitive);
+        runParallelMax(millionPrimitive);
+        runParallelMax(millionPrimitive);
     }
 
-    @Test
-    public void maxVsFilter(){
-        runFilter(millionPrimitive);
-        runFilter(millionBoxed);
-        runFilter(millionPrimitive);
-        runFilter(millionBoxed);
-        runFilter(millionPrimitive);
-        runFilter(millionBoxed);
-
-        runMax(millionPrimitive);
-        runMax(millionBoxed);
-        runMax(millionPrimitive);
-        runMax(millionBoxed);
-        runMax(millionPrimitive);
-        runMax(millionBoxed);
-    }
-
-
-    public void runFilter(int[] array){
+    private void runParallelFilter(Integer[] array){
         StringBuilder stats = new StringBuilder();
         Date start = new Date();
-        stats.append(array.length+" Primitives Filter: ");
-        stats.append(IntStream.of(array)
-                .filter(x -> (x > 4)));
+        stats.append(array.length+" Boxed Parallel Filter: ");
+        stats.append(
+                Stream.of(array).parallel()
+                        .filter(x -> (x > 4)));
         Date end = new Date();
         stats.append(". Running time: "+(end.getTime()-start.getTime())+"ms");
         System.out.println(stats.toString());
     }
 
-    public void runFilter(Integer[] array){
+    private void runParallelFilter(int[] array){
         StringBuilder stats = new StringBuilder();
         Date start = new Date();
-        stats.append(array.length+" Boxed Filter: ");
-        stats.append(Stream.of(array)
-                .filter(x -> (x > 4)));
+        stats.append(array.length+" Primitive Parallel Filter: ");
+        stats.append(
+                IntStream.of(array).parallel()
+                        .filter(x -> (x > 4)));
         Date end = new Date();
         stats.append(". Running time: "+(end.getTime()-start.getTime())+"ms");
         System.out.println(stats.toString());
     }
 
-    public void runMax(int[] array){
+    private void runParallelMax(Integer[] array){
         StringBuilder stats = new StringBuilder();
         Date start = new Date();
-        stats.append(array.length+" Primitives Max: ");
-        stats.append(IntStream.of(array)
-                .max().getAsInt());
-
+        stats.append(array.length+" Boxed Parallel Max: ");
+        stats.append(
+                Stream.of(array).parallel()
+                        .max(Comparator.naturalOrder()));
         Date end = new Date();
         stats.append(". Running time: "+(end.getTime()-start.getTime())+"ms");
         System.out.println(stats.toString());
     }
 
-    public void runMax(Integer[] array){
+    private void runParallelMax(int[] array){
         StringBuilder stats = new StringBuilder();
         Date start = new Date();
-        stats.append(array.length+" Boxed Max: ");
-        stats.append(Stream.of(array)
-                .max(Comparator.naturalOrder())
-                .get());
+        stats.append(array.length+" Primitive Parallel Max: ");
+        stats.append(
+                IntStream.of(array).parallel()
+                        .max().getAsInt());
         Date end = new Date();
         stats.append(". Running time: "+(end.getTime()-start.getTime())+"ms");
         System.out.println(stats.toString());
