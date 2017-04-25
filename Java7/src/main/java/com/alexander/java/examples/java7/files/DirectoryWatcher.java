@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static java.nio.file.StandardWatchEventKinds.*;
-import static org.junit.Assert.assertEquals;
-
 /**
  * <a href="https://docs.oracle.com/javase/tutorial/essential/io/notification.html">Oracle IO directory watching page</a>
  * Obtain a {@link WatchService} from the {@link FileSystems} as a static method.
