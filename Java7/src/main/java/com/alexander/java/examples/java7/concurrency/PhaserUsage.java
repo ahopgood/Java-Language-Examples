@@ -23,7 +23,8 @@ public class PhaserUsage {
         for (int i = 0; i < 25; i++){
             tasks.add(new PhaserUsage().new Printer(i));
         }
-        usage.runTasks(tasks);
+//        usage.runTasks(tasks);
+        usage.runTasksInTwoPhases(tasks);
         System.out.println(System.currentTimeMillis());
     }
 
@@ -31,7 +32,25 @@ public class PhaserUsage {
         final Phaser phaser = new Phaser(1); // "1" to register self
         // create and start threads
         for (final Runnable task : tasks) {
-            phaser.register();
+            System.out.println("Registering task in phase " + phaser.register());
+            new Thread() {
+                public void run() {
+                    phaser.arriveAndAwaitAdvance(); // await all creation
+                    task.run();
+                }
+            }.start();
+        }
+
+        // allow threads to start and deregister self
+        phaser.arriveAndDeregister();
+    }
+
+    void runTasksInTwoPhases(List<Runnable> tasks) {
+        final Phaser phaser = new Phaser(1); // "1" to register self
+        // create and start threads
+        phaser.bulkRegister(10);
+        for (final Runnable task : tasks) {
+            System.out.println("Registering task in phase "+phaser.register());
             new Thread() {
                 public void run() {
                     phaser.arriveAndAwaitAdvance(); // await all creation
