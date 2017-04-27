@@ -11,6 +11,8 @@ public class OverloaderTest {
     public void testOverload(){
         Overloader overloader = new Overloader();
 
-        overloader.overloadedMethod((x) -> true);
+        overloader.overloadedMethod(x -> true);
+
+        overloader.overloadedMethod((MyFunkyInterface)x -> true);
     }
 }
