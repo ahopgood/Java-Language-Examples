@@ -161,4 +161,20 @@ public class StreamOperationsTest {
         assertEquals(expected, op.getLongTracks_refactor3(albums));
     }
 
+    @Test
+    public void testRange(){
+        assertEquals(3, op.range().length);
+        assertEquals(0, op.range()[0]);
+        assertEquals(1, op.range()[1]);
+        assertEquals(2, op.range()[2]);
+    }
+
+    @Test
+    public void testRangeClosed(){
+        assertEquals(4, op.rangeClosed().length);
+        assertEquals(0, op.rangeClosed()[0]);
+        assertEquals(1, op.rangeClosed()[1]);
+        assertEquals(2, op.rangeClosed()[2]);
+        assertEquals(3, op.rangeClosed()[3]);
+    }
 }

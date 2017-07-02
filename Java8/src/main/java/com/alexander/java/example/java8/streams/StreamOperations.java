@@ -2,6 +2,7 @@ package com.alexander.java.example.java8.streams;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
@@ -189,4 +190,13 @@ public class StreamOperations {
                 .forEach(string -> tracknames.add(string));
         return tracknames;
     }
+    
+    public int[] range(){
+        return IntStream.range(0,3).toArray();
+    }
+
+    public int[] rangeClosed(){
+        return IntStream.rangeClosed(0,3).toArray();
+    }
+
 }
