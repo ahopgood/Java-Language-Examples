@@ -1,7 +1,4 @@
-package com.alexander.java.example.java8.exercises;
-
-import com.alexander.java.example.java8.exercises.factorial.Factorial;
-import com.alexander.java.example.java8.exercises.factorial.FactorialLambda;
+package com.alexander.java.example.java8.exercises.factorial;
 
 /**
  * Created by Alexander on 09/07/2017.

@@ -1,4 +1,4 @@
-package com.alexander.java.example.java8.exercises;
+package com.alexander.java.example.java8.exercises.factorial;
 
 import com.alexander.java.example.java8.exercises.factorial.Factorial;
 import org.junit.After;

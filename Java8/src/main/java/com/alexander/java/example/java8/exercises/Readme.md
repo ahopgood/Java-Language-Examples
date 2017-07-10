@@ -11,4 +11,27 @@ The factorial of 6 (6!) would be `1 * 2 * 3 * 4 * 5 * 6 = 720`
 
 Write a recursive program to calculate factorials.  
 Write a procedural program to calculate factorials.  
-Write the recursive solution using Java 8 streams and lambdas.  
+Write the recursive solution using Java 8 streams and lambdas.
+  
+## Callbacks
+
+The `CallbackOperator` is a service that has a callback style method similar to the following psuedo code:
+```
+public String performCallback (Callback callback){
+    return callback.callback();
+}
+```
+This consumes a `Callback` interface:
+```
+public inteface Callback {
+    String callback();
+}
+```
+There is an abstract method called `String setupCallback()`, in this method you will call `super.performCallback(Callback callback)` in three different ways.
+
+Create three subclasses of CallbackOperator which contain an implementation of the call back in one of three ways via their `setupCallback()` method:
+1. `VariableCallbackOperator` where an implementation of the Callback interface is explicitly created seperately and assigned to its own variable and then passed to `performCallback` method.
+1. `InnerClassCallbackOperator` an annoymous inner class that performs the same function as the explicit object above but is created and instantiated within the service setup code.
+1. `LambdaCallbackOperator` a lambda call removing the need for a static anonymous class.
+
+Once these subclasses and their abstract methods are created and instantiated then the code should compile and you can test your implementations.
