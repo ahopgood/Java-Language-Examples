@@ -5,9 +5,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
+import static java.util.function.Function.*;
 import static org.junit.Assert.*;
 
 /**
@@ -179,7 +182,6 @@ public class StreamOperationsTest {
     @Test
     public void testFilter_ObjectNull(){
         List<Integer> numbers = Arrays.asList(1, null, 2, null, 3);
-        
         assertEquals(5, numbers.size());
         
         List<Integer> filtered = numbers
@@ -193,6 +195,38 @@ public class StreamOperationsTest {
                 .filter(Objects::isNull)
                 .collect(Collectors.toList());
         assertEquals(2, nullOnly.size());
+    }
+    
+    @Test
+    public void testMap_functionIdentity(){
+        class Person{
+            private Integer id;
+            private String name;
+            public Person(Integer id, String name){
+                this.id = id;
+                this.name = name;
+            }
+            
+            public Integer id(){
+                return this.id;
+            }
+            
+            public String name(){
+                return this.name;
+            }
+        }
+        List<Person> people = Arrays.asList(
+                new Person(1, "Alex"), 
+                new Person(2, "Katie"), 
+                new Person(3, "Alfie"));
+        
+        Map<Integer, Person> mapped = people
+                .stream()
+                .collect(Collectors.toMap(Person::id, Function.identity()));
+        
+        assertEquals("Alex",    mapped.get(1).name());
+        assertEquals("Katie",   mapped.get(2).name());
+        assertEquals("Alfie",   mapped.get(3).name());
     }
     
 }
