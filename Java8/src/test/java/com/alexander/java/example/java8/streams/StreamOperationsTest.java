@@ -4,10 +4,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
@@ -177,4 +175,24 @@ public class StreamOperationsTest {
         assertEquals(2, op.rangeClosed()[2]);
         assertEquals(3, op.rangeClosed()[3]);
     }
+    
+    @Test
+    public void testFilter_ObjectNull(){
+        List<Integer> numbers = Arrays.asList(1, null, 2, null, 3);
+        
+        assertEquals(5, numbers.size());
+        
+        List<Integer> filtered = numbers
+                .stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+        assertEquals(3, filtered.size());
+
+        List<Integer> nullOnly = numbers
+                .stream()
+                .filter(Objects::isNull)
+                .collect(Collectors.toList());
+        assertEquals(2, nullOnly.size());
+    }
+    
 }
