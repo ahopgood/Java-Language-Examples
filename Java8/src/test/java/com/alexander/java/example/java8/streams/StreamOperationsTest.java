@@ -151,6 +151,13 @@ public class StreamOperationsTest {
     }
 
     @Test
+    public void testReduceMax(){
+        List<Integer> numbers = asList(1,3,2);
+        assertEquals(3, op.reduceMax_stream(numbers).intValue());
+        assertEquals(3, op.reduceMax_traditional(numbers).intValue());
+    }
+    
+    @Test
     public void testGetLongTracks(){
         Set<String> expected = new HashSet<String>();
         expected.add("Jericho");

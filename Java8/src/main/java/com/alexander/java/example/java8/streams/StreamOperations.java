@@ -143,6 +143,25 @@ public class StreamOperations {
         return sum;
     }
 
+    public Integer reduceMax_stream(List<Integer> list){
+        return list.stream()
+                .reduce(0, (acc, element) -> {
+                    if (element > acc ) 
+                        acc = element;
+                    return acc;
+                });
+    }
+
+    public Integer reduceMax_traditional(List<Integer> list){
+        Integer max = new Integer(0);
+        for (Integer i : list){
+            if (i > max){
+                max = i;
+            }
+        }
+        return max;
+    }
+    
     public Set<String> getLongTracks_legacy(List<Album> albums){
         Set<String> tracknames = new HashSet<String>();
         for (Album album : albums){
