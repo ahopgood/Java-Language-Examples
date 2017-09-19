@@ -4,12 +4,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.*;
-import java.nio.file.Files;
+import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.PosixFilePermission;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Arrays;
+import java.util.List;
 
 import static junit.framework.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
@@ -274,5 +273,17 @@ public class FileHelpersTest {
                 newFile.delete();
             }
         }
+    }
+
+    List<String> glowwormText = Arrays.asList("I wish",
+            "I were",
+            "a glowworm,",
+            "a glowworm's never glum.",
+            "How can you be unhappy when the sun shines out your bum?");
+    @Test
+    public void testReadAllLines() throws IOException, URISyntaxException {
+        Path path = Paths.get(getClass().getResource("glowworm.txt").toURI());
+
+        assertEquals(glowwormText, helper.readFileLines(path.toAbsolutePath().toString()));
     }
 }
