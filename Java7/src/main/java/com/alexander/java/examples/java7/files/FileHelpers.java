@@ -4,13 +4,15 @@ package com.alexander.java.examples.java7.files;
  * Created by alexhopgood on 09/11/16.
  */
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,8 +23,8 @@ import java.util.Set;
  */
 public class FileHelpers {
 
-    protected String separator = System.getProperty("file.separator");
-    protected String packagePath = this.getClass().getPackage().toString().replace(".", separator);
+    protected String separator = File.separator;
+    protected String packagePath = this.getClass().getPackage().getName().toString().replace(".", separator);
     public FileHelpers(){}
 
     public void copyFile(String source, String target) throws IOException {
@@ -74,6 +76,11 @@ public class FileHelpers {
     public byte[] readFile(String filename) throws IOException {
         Path path = Paths.get(filename);
         return Files.readAllBytes(path);
+    }
+
+    public List<String> readFileLines(String filename) throws IOException {
+        Path path = Paths.get(filename);
+        return Files.readAllLines(path, StandardCharsets.UTF_8);
     }
 
     public void writeFile(String filename, String text) throws IOException {
