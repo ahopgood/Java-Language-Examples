@@ -1,13 +1,8 @@
 package com.alexander.java.examples.java7.files;
 
-import com.sun.xml.internal.stream.writers.UTF8OutputStreamWriter;
-
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.charset.spi.CharsetProvider;
 import java.nio.file.*;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static java.nio.file.StandardWatchEventKinds.*;
 /**

@@ -72,6 +72,6 @@ public class FileVisitorUsageTest {
         FileVisitorUsage visitor = new FileVisitorUsage();
         Files.walkFileTree(path, visitor);
         assertEquals("Entering directory Name :" + path.toString(), visitor.getVisited().get(0));
-        assertEquals("Leaving directory Name :"+path.toString(), visitor.getVisited().get(7));
+        assertEquals("Leaving directory Name :"+path.toString(), visitor.getVisited().get(8));
     }
 }

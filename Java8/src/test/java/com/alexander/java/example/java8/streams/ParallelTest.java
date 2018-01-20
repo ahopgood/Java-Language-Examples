@@ -15,7 +15,9 @@ import java.util.stream.Stream;
 public class ParallelTest {
     static int ten = 10;
     static int thousand = 10_000;
+//    static int thousand = 10_0;
     static int million = 1_000_000_00;
+//    static int million = 1_000;
 
     static int[] tenPrimitive = new int[ten];
     static Integer[] tenBoxed = new Integer[ten];

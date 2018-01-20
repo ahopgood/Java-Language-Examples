@@ -13,7 +13,7 @@ public class AutomaticResourceMgmt {
 	
 	public void openFile() throws IOException{
 		try {
-			in = new FileInputStream("test.txt");
+			in = new FileInputStream(getClass().getResource("test.txt").getFile());
 			out = new FileOutputStream("desttest.txt");
 			
 			byte[] buf = new byte[8192];
@@ -25,13 +25,6 @@ public class AutomaticResourceMgmt {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			if (out != null){
-				out.close();
-			}
-			if (in != null){
-				in.close();
-			}
 		}
 	}
 	
@@ -39,7 +32,7 @@ public class AutomaticResourceMgmt {
 	public OutputStream managedOut;
 	
 	public void managedResourceOpenFile(){
-		try ( 	InputStream in = new FileInputStream("test.txt");
+		try ( 	InputStream in = new FileInputStream(getClass().getResource("test.txt").getFile());
 				OutputStream out = new FileOutputStream("desttest.txt")
 			){
 			managedIn = in;		//only setting this so we can access the streams to verify via tests

@@ -27,7 +27,7 @@ public class DirectoryStreamUsage {
     }
 
     public List<String> printTextFiles(Path directory) throws IOException {
-        return printFiles(directory, "*.text");
+        return printFiles(directory, "*.txt");
     }
 
     protected List<String> printFiles(Path directory, String globPattern) throws IOException {

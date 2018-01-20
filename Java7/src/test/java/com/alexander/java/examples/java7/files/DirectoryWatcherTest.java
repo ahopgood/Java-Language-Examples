@@ -4,6 +4,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
@@ -49,7 +51,9 @@ public class DirectoryWatcherTest {
         DirectoryWatcher watcher = new DirectoryWatcher();
         watcher.registerWatcher(directoryName);
         Files.createFile(Paths.get(directoryName, fileName));
-        Files.newBufferedWriter(Paths.get(directoryName, fileName), StandardCharsets.UTF_8).write("test string");
+        BufferedWriter writer = Files.newBufferedWriter(Paths.get(directoryName, fileName), StandardCharsets.UTF_8);
+        writer.write("test string");
+        writer.close();
         //Pop the list of events
         List<WatchEvent<?>> events = watcher.getEvents(waitDuration);
 

@@ -24,7 +24,7 @@ public class DirectoryStreamUsageTest {
         Path path = Paths.get(sourceFolder, this.getClass().getPackage().getName().split("\\."));
 
         List<String> javaFiles = usage.printJavaFiles(path);
-        assertEquals(5, javaFiles.size());
+        assertEquals(7, javaFiles.size());
     }
 
     @Test
@@ -42,15 +42,15 @@ public class DirectoryStreamUsageTest {
         Path path = Paths.get(resourceFolder, this.getClass().getPackage().getName().split("\\."));
 
         List<String> textFiles = usage.printTextFiles(path);
-        assertEquals(5, textFiles.size());
+        assertEquals(4, textFiles.size());
     }
 
     @Test
     public void testPrintTextFiles_givenOnlyJavaFiles() throws IOException {
         DirectoryStreamUsage usage = new DirectoryStreamUsage();
-        Path path = Paths.get(resourceFolder, this.getClass().getPackage().getName().split("\\."));
+        Path path = Paths.get(sourceFolder, this.getClass().getPackage().getName().split("\\."));
 
         List<String> textFiles = usage.printTextFiles(path);
-        assertEquals(5, textFiles.size());
+        assertEquals(0, textFiles.size());
     }
 }

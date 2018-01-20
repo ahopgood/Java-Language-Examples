@@ -32,11 +32,15 @@ public class FileSystemUsageTest {
         System.out.println(zipPath.toString());
 
         assertTrue(Files.exists(zipPath));
-        System.out.println("zip archive file permissions:");
-        System.out.println(Files.getPosixFilePermissions(zipPath).toString());
-
+        try {
+            System.out.println("zip archive file permissions:");
+            System.out.println(Files.getPosixFilePermissions(zipPath).toString());
+        } catch (UnsupportedOperationException uoe){
+            System.out.println("OS does not support reading of attributes");
+        }
+        System.out.println(zipPath.toUri().toString());
         if (fileSystem == null || !fileSystem.isOpen()) {
-            fileSystem = usage.getZipFilesystem(zipPath.toAbsolutePath().toString());
+            fileSystem = usage.getZipFilesystem(zipPath.toUri().toString());
         }
     }
 

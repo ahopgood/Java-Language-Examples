@@ -33,7 +33,7 @@ public class FileSystemUsage {
         Map<String, String> env = new HashMap<>();
         env.put("create","true");
 
-        URI u = URI.create("jar:file:"+uri);
+        URI u = URI.create("jar:"+uri);
         return FileSystems.newFileSystem(u, env);
     }
 

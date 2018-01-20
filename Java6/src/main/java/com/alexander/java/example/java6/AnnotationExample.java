@@ -13,7 +13,6 @@ public class AnnotationExample {
 
     public void processSystemProperties() throws IllegalAccessException {
         for (Field field : this.getClass().getDeclaredFields()){
-            field.setAccessible(true);
             SystemProperty property = field.getAnnotation(SystemProperty.class);
             if ( null != property ){
                 String propertyValue = System.getProperty(property.value());

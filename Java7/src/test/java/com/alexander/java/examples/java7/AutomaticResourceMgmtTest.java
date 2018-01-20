@@ -14,20 +14,27 @@ public class AutomaticResourceMgmtTest {
 		assertNull(mgmt.in);
 		assertNull(mgmt.out);
 		mgmt.openFile();
-		assertNotNull(mgmt.in);
-		assertNotNull(mgmt.out);
+		assertNotNull("FileInputStream should not be closed", mgmt.in);
+		assertNotNull("FileOutputStream should not be closed", mgmt.out);
 		
 		try {
 			mgmt.out.write(1);
-			fail("FileOutputStream should be closed, instead we have been able to write to it.");
 		} catch (IOException e) {
 			e.printStackTrace();
+		} finally {
+			if (mgmt.out != null){
+				mgmt.out.close();
+			}
 		}
+
 		try {
 			assertEquals(-1, mgmt.in.read()); //attempt to read, if properly closed should throw an IOException
-			fail("FileInputStream should be closed, instead we have been able to write to it.");
 		} catch (IOException e){
 			e.printStackTrace();
+		} finally {
+			if (mgmt.in != null){
+				mgmt.in.close();
+			}
 		}
 	}
 	
