@@ -34,7 +34,7 @@
                         <encoding>UTF-8</encoding>
                         <fork>true</fork>
                         <meminitial>256m</meminitial>
-                        <maxmem>3072m</maxmem>
+                        <maxmem>5122m</maxmem>
                     </configuration>
                 </plugin>
                 <plugin>

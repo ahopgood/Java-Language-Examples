@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
 public class StreamOperationsTest {
 
     StreamOperations op = new StreamOperations();
-    static List<Artist> artists = new LinkedList<Artist>();
+    List<Artist> artists = new LinkedList<Artist>();
 
     Artist theBeatles = new Artist().setFrom("Liverpool").setName("The Beatles");
     Artist theProdigy = new Artist().setFrom("Braintree").setName("The Prodigy");
@@ -27,7 +27,7 @@ public class StreamOperationsTest {
     Artist oasis = new Artist().setFrom("Manchester").setName("Oasis");
     Artist theCoral = new Artist().setFrom("liverpool").setName("The Coral");
 
-    static List<Track> tracks = new LinkedList<Track>();
+    List<Track> tracks = new LinkedList<Track>();
 
     Track misery = new Track().setLength(109).setName("misery");
     Track jericho = new Track().setLength(222).setName("Jericho");
@@ -35,16 +35,13 @@ public class StreamOperationsTest {
     Track shakermaker = new Track().setLength(370).setName("Shakermaker");
     Track spanish_main = new Track().setLength(113).setName("Spanish Main");
 
-    static List<Album> albums = new LinkedList<Album>();
+    List<Album> albums = new LinkedList<Album>();
 
     Album pleasePleaseMe = new Album().setArtist(theBeatles).setTrackList(asList(misery));
     Album experience = new Album().setArtist(theProdigy).setTrackList(asList(jericho));
     Album putYourMusicWhereYourMouthIs = new Album().setArtist(sunsOfThunder).setTrackList(asList(swingit));
     Album defintelyMaybe = new Album().setArtist(oasis).setTrackList(asList(shakermaker));
     Album theCoralAlbum = new Album().setArtist(theCoral).setTrackList(asList(spanish_main));
-
-
-
 
     @Before
     public void setUp(){
@@ -65,7 +62,6 @@ public class StreamOperationsTest {
         albums.add(putYourMusicWhereYourMouthIs);
         albums.add(defintelyMaybe);
         albums.add(theCoralAlbum);
-
     }
 
     @Test
@@ -141,7 +137,6 @@ public class StreamOperationsTest {
         long streamArtists = op.countInLoop_stream(artists);
         assertEquals(2, streamArtists);
     }
-
 
     @Test
     public void testReduceSum(){
