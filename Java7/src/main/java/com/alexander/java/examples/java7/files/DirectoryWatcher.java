@@ -41,4 +41,8 @@ public class DirectoryWatcher {
         watcher = FileSystems.getDefault().newWatchService();
         directoryPath.register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
     }
+
+    public void unregisterWatcher() throws IOException {
+        watcher.close();
+    }
 }

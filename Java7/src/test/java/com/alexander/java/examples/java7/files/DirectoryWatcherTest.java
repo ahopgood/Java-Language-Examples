@@ -47,6 +47,7 @@ public class DirectoryWatcherTest {
         System.out.println(events.size()+" number of events found");
         printEvents(events);
         assertEquals(StandardWatchEventKinds.ENTRY_CREATE, events.get(0).kind());
+        watcher.unregisterWatcher();
     }
 
     @Test(timeout = 10000L)
@@ -63,6 +64,7 @@ public class DirectoryWatcherTest {
         System.out.println(events.size()+" number of events found");
         printEvents(events);
         assertEquals(StandardWatchEventKinds.ENTRY_MODIFY, events.get(1).kind());
+        watcher.unregisterWatcher();
     }
 
     @Test(timeout = 10000L)
@@ -78,6 +80,7 @@ public class DirectoryWatcherTest {
         System.out.println(events.size()+" number of events found");
         printEvents(events);
         assertEquals(StandardWatchEventKinds.ENTRY_DELETE, events.get(1).kind());
+        watcher.unregisterWatcher();
     }
 
     private void printEvents(List<WatchEvent<?>> events){
