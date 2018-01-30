@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  */
 public class DirectoryWatcherTest {
 
-    String directoryName = "testDir";
+    String directoryName = System.getProperty("java.io.tmpdir");
     String fileName = "file1";
     long waitDuration = 10000L;
 
