@@ -29,6 +29,7 @@ public class DirectoryWatcher {
         if (this.watcher != null) {
             try {
                 key = watcher.take();
+                Thread.sleep(waitDuration);
                 return key.pollEvents();
             } catch (InterruptedException e) {
                 e.printStackTrace();
