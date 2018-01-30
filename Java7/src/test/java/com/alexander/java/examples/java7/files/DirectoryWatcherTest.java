@@ -20,7 +20,7 @@ public class DirectoryWatcherTest {
 
     String directoryName = "testDir";
     String fileName = "file1";
-    long waitDuration = 1000L;
+    long waitDuration = 10000L;
 
     @Before
     public void setUp() throws IOException {
