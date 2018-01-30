@@ -38,7 +38,7 @@ public class FileWatcherTest {
         watcher.registerWatcher(directoryName);
         Files.createFile(Paths.get(directoryName, fileName));
 
-        List<WatchEvent<?>> events = watcher.getEvents();
+        List<WatchEvent<?>> events = watcher.getEvents(waitDuration);
         System.out.println(events.size()+" number of events found");
         assertEquals(StandardWatchEventKinds.ENTRY_CREATE, events.get(0).kind());
 
@@ -54,7 +54,7 @@ public class FileWatcherTest {
         writer.write("test string");
         writer.close();
         //Pop the list of events
-        List<WatchEvent<?>> events = watcher.getEvents();
+        List<WatchEvent<?>> events = watcher.getEvents(waitDuration);
 
         System.out.println(events.size()+" number of events found");
         assertEquals(StandardWatchEventKinds.ENTRY_MODIFY, events.get(1).kind());
@@ -69,7 +69,7 @@ public class FileWatcherTest {
         watcher.registerWatcher(directoryName);
         Files.deleteIfExists(Paths.get(directoryName, fileName));
 
-        List<WatchEvent<?>> events = watcher.getEvents();
+        List<WatchEvent<?>> events = watcher.getEvents(waitDuration);
 
         System.out.println(events.size()+" number of events found");
         assertEquals(StandardWatchEventKinds.ENTRY_DELETE, events.get(0).kind());

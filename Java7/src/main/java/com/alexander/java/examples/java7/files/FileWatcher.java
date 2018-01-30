@@ -1,10 +1,7 @@
 package com.alexander.java.examples.java7.files;
 
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Paths;
-import java.nio.file.WatchEvent;
-import java.nio.file.WatchService;
+import java.nio.file.*;
 import java.util.List;
 
 import static java.nio.file.StandardWatchEventKinds.ENTRY_CREATE;
@@ -22,7 +19,17 @@ public class FileWatcher {
         Paths.get(directoryName).register(watcher, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
     }
 
-    public List<WatchEvent<?>> getEvents() throws InterruptedException {
-        return watcher.take().pollEvents();
+    public List<WatchEvent<?>> getEvents(long waitDuration) throws InterruptedException {
+        WatchKey key;
+        if (this.watcher != null) {
+            try {
+                key = watcher.take();
+                Thread.sleep(waitDuration);
+                return key.pollEvents();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }
