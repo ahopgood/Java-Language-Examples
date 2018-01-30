@@ -20,7 +20,7 @@ public class DirectoryWatcherTest {
 
     String directoryName = System.getProperty("java.io.tmpdir");
     String fileName = "file1";
-    long waitDuration = 10000L;
+    long waitDuration = 20000L;
 
     @Before
     public void setUp() throws IOException {
