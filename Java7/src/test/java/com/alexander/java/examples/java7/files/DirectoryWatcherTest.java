@@ -36,18 +36,21 @@ public class DirectoryWatcherTest {
     }
 
     @Test(timeout = 10000L)
-    public void testWatchOnDirectoryCreation() throws IOException, InterruptedException {
+    public void testWatchOnDirectoryCreation() throws IOException {
         DirectoryWatcher watcher = new DirectoryWatcher();
         watcher.registerWatcher(directoryName);
+
         Files.createFile(Paths.get(directoryName, fileName));
+        System.out.println("File created");
 
         List<WatchEvent<?>> events = watcher.getEvents(waitDuration);
         System.out.println(events.size()+" number of events found");
+        printEvents(events);
         assertEquals(StandardWatchEventKinds.ENTRY_CREATE, events.get(0).kind());
     }
 
     @Test(timeout = 10000L)
-    public void testWatchOnFileAddedDirectory() throws IOException, InterruptedException {
+    public void testWatchOnFileAddedDirectory() throws IOException {
         DirectoryWatcher watcher = new DirectoryWatcher();
         watcher.registerWatcher(directoryName);
         Files.createFile(Paths.get(directoryName, fileName));
@@ -58,12 +61,12 @@ public class DirectoryWatcherTest {
         List<WatchEvent<?>> events = watcher.getEvents(waitDuration);
 
         System.out.println(events.size()+" number of events found");
+        printEvents(events);
         assertEquals(StandardWatchEventKinds.ENTRY_MODIFY, events.get(1).kind());
-
     }
 
     @Test(timeout = 10000L)
-    public void testWatchOnDirectoryDeletion() throws IOException, InterruptedException {
+    public void testWatchOnDirectoryDeletion() throws IOException {
         DirectoryWatcher watcher = new DirectoryWatcher();
 
         watcher.registerWatcher(directoryName);
@@ -73,8 +76,15 @@ public class DirectoryWatcherTest {
         List<WatchEvent<?>> events = watcher.getEvents(waitDuration);
 
         System.out.println(events.size()+" number of events found");
+        printEvents(events);
         assertEquals(StandardWatchEventKinds.ENTRY_DELETE, events.get(1).kind());
-
     }
 
+    private void printEvents(List<WatchEvent<?>> events){
+        int i = 0;
+        for (WatchEvent<?> event : events){
+            i++;
+            System.out.println(i+" "+event.kind());
+        }
+    }
 }
