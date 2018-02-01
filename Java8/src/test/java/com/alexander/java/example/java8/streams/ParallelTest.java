@@ -13,15 +13,7 @@ import java.util.stream.Stream;
  * Created by alexhopgood on 12/04/17.
  */
 public class ParallelTest {
-    static int ten = 10;
-    static int thousand = 10_000;
     static int million = 1_000_000 ;
-
-    static int[] tenPrimitive = new int[ten];
-    static Integer[] tenBoxed = new Integer[ten];
-
-    static int[] thousandPrimitive = new int[thousand];
-    static Integer[] thousandBoxed = new Integer[thousand];
 
     static int[] millionPrimitive = new int[million];
     static Integer[] millionBoxed = new Integer[million];
@@ -29,8 +21,6 @@ public class ParallelTest {
 
     @BeforeClass
     public static void setUpBefore(){
-        setupArrays(tenPrimitive, tenBoxed, ten);
-        setupArrays(thousandPrimitive, thousandBoxed, thousand);
         setupArrays(millionPrimitive, millionBoxed, million);
     }
 
