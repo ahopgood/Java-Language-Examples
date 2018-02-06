@@ -218,4 +218,8 @@ public class StreamOperations {
         return IntStream.rangeClosed(0,3).toArray();
     }
 
+    public Map<String, List<Album>> albums_groupBy(List<Album> albums){
+        return albums.stream()
+                .collect(Collectors.groupingBy(album -> album.getArtist().getName()));
+    }
 }

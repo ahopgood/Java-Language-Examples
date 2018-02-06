@@ -230,5 +230,10 @@ public class StreamOperationsTest {
         assertEquals("Katie",   mapped.get(2).name());
         assertEquals("Alfie",   mapped.get(3).name());
     }
-    
+
+    @Test
+    public void testGroupBy(){
+        Map<String, List<Album>> artistMaps = op.albums_groupBy(albums);
+        assertEquals(artists.size(), artistMaps.size());
+    }
 }
