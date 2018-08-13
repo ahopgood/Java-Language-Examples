@@ -22,14 +22,14 @@ public class ForkJoinPoolTest {
 //        fjp.execute(); //async
 //        fjp.submit(); //async & future
 
-        int[] array = {0,1,2,3,4,5,6,7,8,9};
-        ForkJoinTask<Void> task = fjp.submit(new IncrementTask(array, 10, 0));
+        long[] array = {0,1,2,3,4,5,6,7,8,9};
+        ForkJoinTask<Void> task = fjp.submit(new IncrementTask(array, 0, array.length ));
         task.get();
         while(!task.isDone()){
             System.out.println("Waiting");
         }
-        for (int i : array){
-            System.out.println(i +" "+array[i]);
+        for (int i = 0; i < array.length; i++){
+            System.out.println("Index " + i +" value "+array[i]);
         }
     }
 
@@ -60,10 +60,10 @@ public class ForkJoinPoolTest {
 
         private int high;
         private int low;
-        private int[] array;
+        private long[] array;
         private int threshold = 10;
 
-        public IncrementTask(int[] array, int high, int low){
+        public IncrementTask(long[] array,  int low, int high){
             this.low = low;
             this.high = high;
             this.array = array;
@@ -74,7 +74,6 @@ public class ForkJoinPoolTest {
             if (high - low < threshold){
                 System.out.println("Changing stuff");
                 for (int i = low; i < high; ++i){
-                    System.out.println("Changing array stuff");
                     array[i]++;
                 }
             } else {
