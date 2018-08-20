@@ -4,9 +4,12 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 import static org.junit.Assert.assertEquals;
 
 public class CollectTest {
@@ -29,5 +32,18 @@ public class CollectTest {
         String lessThanFour = words.stream()
                 .collect(joining(","));
         assertEquals(sentence, lessThanFour);
+    }
+
+    @Test
+    public void testCollectToMap(){
+        Map<Integer, String> map = numbers.stream()
+                .filter(x -> x > 4)
+                .collect(toMap(i -> i, i -> "" + i));
+        assertEquals(5, map.size());
+
+        Map<Integer, String> mapUsingIdentity = numbers.stream()
+                .filter(x -> x > 4)
+                .collect(toMap(Function.identity(), i -> "" + i));
+        assertEquals(5, mapUsingIdentity.size());
     }
 }
