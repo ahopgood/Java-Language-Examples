@@ -36,4 +36,20 @@ public class LocaleTest {
 
     }
 
+    @Test
+    public void testGetExtensions(){
+        Locale uk = Locale.UK;
+//        uk.getExtension('ca');
+//        uk.getExtension('co');
+//        uk.getExtension('k*');
+//        uk.getExtension('cu');
+//        uk.getExtension('nu');
+//        uk.getExtension('tz');
+//        uk.getExtension('va');
+        for (char ext : Locale.getDefault().getExtensionKeys()){
+            System.out.println(ext);
+        }
+
+    }
+
 }
