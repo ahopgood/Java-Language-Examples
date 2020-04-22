@@ -1,7 +1,5 @@
 package com.alexander.java.examples.java7.designpatterns.strategy;
 
-import sun.misc.Resource;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

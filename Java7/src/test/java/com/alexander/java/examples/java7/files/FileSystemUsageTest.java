@@ -1,7 +1,5 @@
 package com.alexander.java.examples.java7.files;
 
-import com.sun.nio.zipfs.ZipFileSystem;
-import com.sun.nio.zipfs.ZipPath;
 import org.junit.*;
 
 import java.io.*;
