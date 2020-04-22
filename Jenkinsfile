@@ -8,7 +8,7 @@ node {
     stage('Build') {
         // Run the maven build
         if (isUnix()) {
-            sh 'mvn clean package'
+            sh 'mvn clean package -pl Java6,Java7,Java8'
         }
     }
 }
