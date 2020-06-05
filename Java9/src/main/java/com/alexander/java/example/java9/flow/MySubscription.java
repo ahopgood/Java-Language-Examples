@@ -1,15 +1,12 @@
 package com.alexander.java.example.java9.flow;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.concurrent.Flow;
 
 public class MySubscription implements Flow.Subscription {
 
-//    private List<Integer> buffer = new LinkedList<>();
-    private Queue buffer = new PriorityQueue();
+    private Queue<Integer> buffer = new PriorityQueue<>();
     private Flow.Subscriber subscriber;
 
     public void addSubscriber(Flow.Subscriber subscriber) {

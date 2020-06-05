@@ -1,6 +1,5 @@
 package com.alexander.java.example.java9.flow;
 
-
 import java.util.concurrent.Flow;
 
 public class MyPublisher implements Flow.Publisher<Integer> {
