@@ -77,7 +77,7 @@ public class CollectionsTest {
         numbers.add(4);
         numbers.add(5);
 
-        List unmodifiableNumbers = numbers.stream().collect(Collectors.toList());
+        List unmodifiableNumbers = numbers.stream().collect(Collectors.toUnmodifiableList());
 
         assertThat(unmodifiableNumbers.size()).isEqualTo(5);
         assertThrows(UnsupportedOperationException.class, () -> unmodifiableNumbers.add(6));
