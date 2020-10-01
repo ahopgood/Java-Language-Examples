@@ -18,6 +18,9 @@ import java.util.Base64;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Poly1305 is a Message Authentication Code that is typically used in conjuction with the ChaCha20 Steam cipher
+ */
 public class Poly1305Test {
 
     private static final String POLY1305_ALG = "ChaCha20-Poly1305/None/NoPadding";
