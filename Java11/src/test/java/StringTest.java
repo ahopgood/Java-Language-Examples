@@ -209,7 +209,7 @@ public class StringTest {
 
     @Test
     void testRepeat_intMax() {
-        String s = "x";
-        assertThat(s.repeat(Integer.MAX_VALUE)).isEqualTo("xxx");
+        String s = "xxx";
+        assertThrows(OutOfMemoryError.class, () -> s.repeat(Integer.MAX_VALUE), "Repeating 3 bytes String 2147483647 times will produce a String exceeding maximum size.");
     }
 }
