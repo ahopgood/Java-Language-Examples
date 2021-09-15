@@ -1,28 +1,41 @@
 package crypto;
 
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
+import org.junit.jupiter.api.Test;
+
+import java.security.InvalidKeyException;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
+import java.security.Signature;
+import java.security.SignatureException;
+import java.util.Base64;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class EdDSATest {
 
-    private static final String EdDSA_ALG = "EdDSA";
+    private static final String ED_DSA_ALG = "EdDSA";
+    private static final String ED_DSA_PARAM_SPEC_25519 = "Ed25519";
+    private static final String ED_DSA_PARAM_SPEC_448 = "Ed448";
     private static final String PLAINTEXT = "I'm a super secret message";
 
-    private final Cipher encryptCipher = Cipher.getInstance(EdDSA_ALG);
-    private final Cipher decryptCipher = Cipher.getInstance(EdDSA_ALG);
+    @Test
+    void testEdDSA_signing() throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
 
-    private final byte[] nonce = new byte[12];
-    private final int counter = 900;
+        KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(ED_DSA_PARAM_SPEC_25519);
+        KeyPair keyPair = keyPairGenerator.generateKeyPair();
 
-    private KeyGenerator keyGenerator = KeyGenerator.getInstance(EdDSA_ALG);
-    private SecretKey key = keyGenerator.generateKey();
+        Signature sig = Signature.getInstance(ED_DSA_PARAM_SPEC_25519);
+        sig.initSign(keyPair.getPrivate());
+        sig.update(PLAINTEXT.getBytes());
 
-    public EdDSATest() throws NoSuchPaddingException, NoSuchAlgorithmException {
+        byte[] signedBytes = sig.sign();
+        System.out.println("Signature Text : " + Base64.getEncoder().encodeToString(signedBytes));
+
+        Signature verifier = Signature.getInstance(ED_DSA_PARAM_SPEC_25519);
+        verifier.initVerify(keyPair.getPublic());
+        verifier.update(PLAINTEXT.getBytes());
+        assertTrue(verifier.verify(signedBytes));
+
     }
-    //EdDSA required:
-
-
 }
