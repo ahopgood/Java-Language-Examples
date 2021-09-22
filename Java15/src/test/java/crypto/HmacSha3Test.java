@@ -22,6 +22,7 @@ public class HmacSha3Test {
 
     private static final String SECRET_KEY = "1234";
 
+    private static final String MESSAGE = "My message";
 
     @ValueSource(strings = {HMAC_SHA3_224, HMAC_SHA3_256, HMAC_SHA3_384, HMAC_SHA3_512})
     @ParameterizedTest
@@ -30,13 +31,9 @@ public class HmacSha3Test {
 
         SecretKeySpec keySpec = new SecretKeySpec(SECRET_KEY.getBytes(StandardCharsets.UTF_8), algorithm);
         mac.init(keySpec);
-        byte[] sha3Hmac = mac.doFinal("My message".getBytes(StandardCharsets.UTF_8));
+        byte[] sha3Hmac = mac.doFinal(MESSAGE.getBytes(StandardCharsets.UTF_8));
 
-        System.out.println(String.format("Hex: %032x", new BigInteger(1, sha3Hmac)));
-
-        String base64HmacSha256 = Base64.getEncoder().encodeToString(sha3Hmac);
-        System.out.println("Base64: " + base64HmacSha256);
-        System.out.println("Byte length: " + sha3Hmac.length);
+        printMacInfo(sha3Hmac, algorithm);
     }
 
     @ValueSource(strings = {HMAC_SHA3_224, HMAC_SHA3_256, HMAC_SHA3_384, HMAC_SHA3_512})
@@ -48,13 +45,16 @@ public class HmacSha3Test {
 
         SecretKeySpec keySpec = new SecretKeySpec(generator.generateKey().getEncoded(), algorithm);
         mac.init(keySpec);
-        byte[] sha3Hmac = mac.doFinal("My message".getBytes(StandardCharsets.UTF_8));
+        byte[] sha3Hmac = mac.doFinal(MESSAGE.getBytes(StandardCharsets.UTF_8));
 
+        printMacInfo(sha3Hmac, algorithm);
+    }
+
+    private void printMacInfo(byte[] sha3Hmac, String algorithm) {
+        System.out.println(algorithm);
         System.out.println(String.format("Hex: %032x", new BigInteger(1, sha3Hmac)));
-
         String base64HmacSha256 = Base64.getEncoder().encodeToString(sha3Hmac);
         System.out.println("Base64: " + base64HmacSha256);
         System.out.println("Byte length: " + sha3Hmac.length);
     }
-
 }
