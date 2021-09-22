@@ -2,7 +2,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
