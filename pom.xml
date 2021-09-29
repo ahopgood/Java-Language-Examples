@@ -16,6 +16,7 @@
         <module>Java9</module>
         <module>Java10</module>
         <module>Java11</module>
+        <module>Java17</module>
     </modules>
 
     <properties>
