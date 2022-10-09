@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'Java11' }
+    agent { label 'Java17' }
     stages {
         stage('build') {
             steps {
