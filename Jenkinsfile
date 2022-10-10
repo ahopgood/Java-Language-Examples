@@ -4,8 +4,12 @@ pipeline {
         stage('build') {
             steps {
                 git credentialsId: 'github_token', url: 'https://github.com/ahopgood/Java-Language-Examples.git', branch: '${BRANCH_NAME}'
+                sh """
+                    echo ${PATH}
+                    echo $(lsb_release)
+                """
                 sh 'mvn -version'
-                sh 'mvn clean install'
+                sh 'mvn clean install -pl Java17'
             }
         }
     }
