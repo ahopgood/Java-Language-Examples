@@ -1,4 +1,5 @@
 pipeline {
+    agent { label 'Java11' }
     stages {
         stage ('Parallel Builds') {
             parallel {
