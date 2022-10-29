@@ -2,7 +2,6 @@ package com.alexander.java.examples.java7.locales;
 
 import org.junit.Test;
 
-import java.awt.*;
 import java.util.Currency;
 import java.util.Locale;
 
