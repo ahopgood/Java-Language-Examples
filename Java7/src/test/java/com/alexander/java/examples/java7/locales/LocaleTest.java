@@ -19,7 +19,7 @@ public class LocaleTest {
 
     @Test
     public void locale_setDisplay(){
-        Locale.setDefault(Locale.Category.DISPLAY, Locale.CANADA_FRENCH);
+        Locale.setDefault(Locale.Category.DISPLAY, Locale.FRENCH);
 
         Currency currency = Currency.getInstance(Locale.getDefault());
         System.out.println(currency.getSymbol());
