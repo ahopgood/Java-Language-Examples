@@ -22,19 +22,12 @@ public class LocaleTest {
     public void locale_setDisplay(){
         Locale.setDefault(Locale.Category.DISPLAY, Locale.FRANCE);
 
-        Currency currency = Currency.getInstance(Locale.getDefault());
-        System.out.println(currency.getSymbol());
-        System.out.println(currency.getDisplayName());
+        System.out.println(Locale.getDefault(Locale.Category.DISPLAY).getDisplayCountry());
+        System.out.println(Locale.getDefault(Locale.Category.DISPLAY).getDisplayLanguage());
     }
 
     @Test
     public void locale_setFormat(){
-
-        System.out.println("Available Locales:");
-        for (Locale locale : Locale.getAvailableLocales()) {
-            System.out.println(locale.getDisplayCountry() + "" + locale.getDisplayLanguage());
-        }
-
         Locale.setDefault(Locale.Category.FORMAT, Locale.ENGLISH);
 
         System.out.println(Locale.getDefault(Locale.Category.FORMAT).getDisplayCountry());
