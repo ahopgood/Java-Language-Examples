@@ -1,7 +1,5 @@
-import org.assertj.core.api.recursive.comparison.RecursiveComparisonConfiguration;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,12 +16,11 @@ public class DocumentBuilderTest {
         dbf.setNamespaceAware(true);
         DocumentBuilder oldDocumentBuilder = dbf.newDocumentBuilder();
 
-        RecursiveComparisonConfiguration conf = new RecursiveComparisonConfiguration();
-        conf.ignoreFields("domParser");
+        assertThat(oldDocumentBuilder.getDOMImplementation())
+                .isEqualTo(oldDocumentBuilder.getDOMImplementation());
+        assertThat(oldDocumentBuilder.getSchema())
+                .isEqualTo(oldDocumentBuilder.getSchema());
 
-        assertThat(newDocumentBuilder)
-                .usingRecursiveComparison(conf)
-                .isEqualTo(oldDocumentBuilder);
     }
 
 }
