@@ -80,6 +80,13 @@ pipeline {
                         sh 'mvn clean install -pl Java16'
                     }
                 }
+                stage('Build Java 17') {
+                    agent { label 'Java17' }
+                    steps {
+                        sh 'mvn -version'
+                        sh 'mvn clean install -pl Java17'
+                    }
+                }
             } //end parallel block
         } // end parallel stage
     } // end stages
