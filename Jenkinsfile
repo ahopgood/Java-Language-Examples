@@ -73,6 +73,13 @@ pipeline {
                         sh 'mvn clean install -pl Java15'
                     }
                 }
+                stage('Build Java 16') {
+                    agent{ label 'Java16' }
+                    steps {
+                        sh 'mvn --version'
+                        sh 'mvn clean install -pl Java16'
+                    }
+                }
             } //end parallel block
         } // end parallel stage
     } // end stages
