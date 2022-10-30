@@ -80,20 +80,14 @@ pipeline {
                         sh 'mvn clean install -pl Java16'
                     }
                 }
+                stage('Build Java 17') {
+                    agent { label 'Java17' }
+                    steps {
+                        sh 'mvn -version'
+                        sh 'mvn clean install -pl Java17'
+                    }
+                }
             } //end parallel block
         } // end parallel stage
     } // end stages
-        stage('Build Java 17') {
-            agent { label 'Java17' }
-            steps {
-                git credentialsId: 'github_token', url: 'https://github.com/ahopgood/Java-Language-Examples.git', branch: '${BRANCH_NAME}'
-                sh '''
-                    echo ${PATH}
-                    echo $(lsb_release)
-                '''
-                sh 'mvn -version'
-                sh 'mvn clean install -pl Java17'
-            }
-        }
-    }
 }
