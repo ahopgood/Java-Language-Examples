@@ -20,6 +20,7 @@
         <module>Java13</module>
         <module>Java14</module>
         <module>Java15</module>
+        <module>Java16</module>
     </modules>
 
     <properties>
