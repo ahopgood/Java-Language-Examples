@@ -52,6 +52,13 @@ pipeline {
                         sh 'mvn clean install -pl Java12'
                     }
                 }
+                stage('Build Java 13') {
+                    agent{ label 'Java13' }
+                    steps {
+                        sh 'mvn --version'
+                        sh 'mvn clean install -pl Java13'
+                    }
+                }
             } //end parallel block
         } // end parallel stage
     } // end stages
