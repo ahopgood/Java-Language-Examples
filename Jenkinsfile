@@ -45,7 +45,7 @@ pipeline {
                         sh 'mvn clean install -pl Java11'
                     }
                 }
-                stage('Java12') {
+                stage('Build Java 12') {
                     agent{ label 'Java12' }
                     steps {
                         sh 'mvn --version'
