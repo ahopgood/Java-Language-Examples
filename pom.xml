@@ -84,7 +84,9 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
-                        <argLine>-Xmx4096m</argLine>
+<!--                        <argLine>-Xmx4096m</argLine>-->
+<!--                        <argLine>-Xmx2048m</argLine>-->
+                        <argLine>-Xmx1024m</argLine>
                     </configuration>
                 </plugin>
             </plugins>
