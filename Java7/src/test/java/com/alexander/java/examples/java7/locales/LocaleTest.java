@@ -1,5 +1,6 @@
 package com.alexander.java.examples.java7.locales;
 
+import java.util.Arrays;
 import org.junit.Test;
 
 import java.util.Currency;
@@ -28,6 +29,12 @@ public class LocaleTest {
 
     @Test
     public void locale_setFormat(){
+
+        System.out.println("Available Locales:");
+        for (Locale locale : Locale.getAvailableLocales()) {
+            System.out.println(locale.getDisplayCountry() + "" + locale.getDisplayLanguage());
+        }
+
         Locale.setDefault(Locale.Category.FORMAT, Locale.ENGLISH);
 
         System.out.println(Locale.getDefault(Locale.Category.FORMAT).getDisplayCountry());
