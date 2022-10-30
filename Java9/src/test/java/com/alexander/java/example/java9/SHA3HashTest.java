@@ -9,7 +9,7 @@ import java.security.NoSuchAlgorithmException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class HashTest {
+public class SHA3HashTest {
 
     private static final String SHA3_224 = "SHA3-224";
     private static final String SHA3_256 = "SHA3-256";

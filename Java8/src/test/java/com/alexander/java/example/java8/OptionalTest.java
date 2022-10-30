@@ -3,7 +3,6 @@ package com.alexander.java.example.java8;
 import org.junit.Test;
 
 import java.util.Optional;
-import java.util.jar.Pack200;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
