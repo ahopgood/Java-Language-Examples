@@ -52,21 +52,14 @@ pipeline {
                         sh 'mvn clean install -pl Java12'
                     }
                 }
+                stage('Build Java 13') {
+                    agent{ label 'Java13' }
+                    steps {
+                        sh 'mvn --version'
+                        sh 'mvn clean install -pl Java13'
+                    }
+                }
             } //end parallel block
         } // end parallel stage
     } // end stages
-        stage('build') {
-            steps {
-                git credentialsId: 'github_token', url: 'https://github.com/ahopgood/Java-Language-Examples.git', branch: '${BRANCH_NAME}'
-                sh 'mvn --version'
-                sh 'mvn clean install'
-            }
-        }
-        stage('Java13') {
-            steps {
-                git credentialsId: 'github_token', url: 'https://github.com/ahopgood/Java-Language-Examples.git', branch: '${BRANCH_NAME}'
-                sh 'mvn clean install -pl Java13'
-            }
-        }
-    }
 }
