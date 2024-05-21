@@ -22,6 +22,7 @@
         <module>Java15</module>
         <module>Java16</module>
         <module>Java17</module>
+        <module>Java18</module>
     </modules>
 
     <properties>
