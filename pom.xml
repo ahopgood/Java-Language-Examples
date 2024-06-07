@@ -23,6 +23,7 @@
         <module>Java16</module>
         <module>Java17</module>
         <module>Java18</module>
+        <module>Java19</module>
     </modules>
 
     <properties>
