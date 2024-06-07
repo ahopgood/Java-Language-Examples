@@ -10,7 +10,7 @@ import java.io.UnsupportedEncodingException;
 public class EmojiTest {
 
     @Test
-    public void testUnicode13() throws UnsupportedEncodingException {
+    public void testUnicode14() throws UnsupportedEncodingException {
         int emojiCodePoint = 0x1FAE0;
 
         System.out.println(Character.getName(emojiCodePoint));
