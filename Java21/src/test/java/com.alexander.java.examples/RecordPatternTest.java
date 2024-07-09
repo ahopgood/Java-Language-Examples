@@ -79,7 +79,7 @@ public class RecordPatternTest {
             var sum = x + y;
             assertThat(sum).isEqualTo(1);
             var inferredSum = bottomRight.x() + bottomRight.y();
-            assertThat(sum).isEqualTo(1);
+            assertThat(inferredSum).isEqualTo(1);
         } else {
             fail("Wrong pattern");
         }
