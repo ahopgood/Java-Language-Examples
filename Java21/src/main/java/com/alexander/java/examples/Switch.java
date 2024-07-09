@@ -25,4 +25,35 @@ public class Switch {
             default        -> obj.toString();
         };
     }
+
+    static String PatternSwitchWithIfBlock(String response) {
+        switch (response) {
+            case null -> { }
+            case String s -> {
+                if (s.equalsIgnoreCase("YES"))
+                    return "You got it";
+                else if (s.equalsIgnoreCase("NO"))
+                    return "Shame";
+                else
+                    return "Sorry?";
+            }
+        }
+        return "";
+    }
+
+    static String PatternSwitchWithGuardPatternLabels(String response) {
+        switch (response) {
+            case String s
+                when s.equalsIgnoreCase("YES") -> {
+                return "You got it";
+            }
+            case String s
+                when s.equalsIgnoreCase("NO") -> {
+                return "Shame";
+            }
+            case String s -> {
+                return "Sorry?";
+            }
+        }
+    }
 }

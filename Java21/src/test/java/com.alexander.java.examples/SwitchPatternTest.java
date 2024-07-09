@@ -33,4 +33,28 @@ public class SwitchPatternTest {
             Arguments.of(Double.valueOf(3), Double.class)
         );
     }
+
+    @ParameterizedTest
+    @MethodSource("inputs")
+    void testGuardedSwitch(String input, String expected) {
+        assertThat(Switch.PatternSwitchWithGuardPatternLabels(input)).isEqualTo(expected);
+    }
+
+    @ParameterizedTest
+    @MethodSource("inputs")
+    void testIfBlockSwitch(String input, String expected) {
+        assertThat(Switch.PatternSwitchWithIfBlock(input)).isEqualTo(expected);
+    }
+
+    private static Stream<Arguments> inputs() {
+        return Stream.of(
+            Arguments.of("yes", "You got it"),
+            Arguments.of("YES", "You got it"),
+            Arguments.of("yEs", "You got it"),
+            Arguments.of("no", "Shame"),
+            Arguments.of("NO", "Shame"),
+            Arguments.of("No", "Shame"),
+            Arguments.of("other", "Sorry?")
+        );
+    }
 }
