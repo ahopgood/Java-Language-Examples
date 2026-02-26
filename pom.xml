@@ -25,6 +25,7 @@
         <module>Java18</module>
         <module>Java19</module>
         <module>Java20</module>
+        <module>Java21</module>
     </modules>
 
     <properties>
@@ -54,6 +55,11 @@
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-params</artifactId>
                 <version>${junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-engine</artifactId>
+                <version>1.8.2</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
